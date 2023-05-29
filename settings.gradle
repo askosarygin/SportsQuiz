@@ -14,3 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Sports Quiz"
 include ':app'
+include ':common'
+include ':data'
+include ':main-screen-ui'
+include ':main-screen-domain'
+include ':game-screen-ui'
+include ':game-screen-domain'
+include ':wallpapers-screen-ui'
+include ':wallpapers-screen-domain'

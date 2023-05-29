@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sports Quiz</string>
+
+    //Screen start
+    <string name="new_game">New game</string>
+    <string name="wallpapers_store">Wallpapers store</string>
+    <string name="greetings">Greetings on Sports Quiz!</string>
+</resources>

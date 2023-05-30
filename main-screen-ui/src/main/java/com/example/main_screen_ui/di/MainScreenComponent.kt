@@ -2,6 +2,7 @@ package com.example.main_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.main_screen_ui.screen_start.FragmentScreenStart
 import dagger.Component
 import dagger.Module
 import javax.inject.Scope
@@ -16,7 +17,7 @@ import kotlin.properties.Delegates
 )]
 internal interface MainScreenComponent {
 
-//    fun inject(fragmentScreenAuthorization: FragmentScreenAuthorization)
+    fun inject(fragmentScreenStart: FragmentScreenStart)
 
     @Component.Builder
     interface Builder {

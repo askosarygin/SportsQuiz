@@ -43,7 +43,9 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
     }
 
     private fun initListeners() {
-
+        binding.btnNextQuestion.setOnClickListener {
+            viewModel.loadEasyQuestions()//todo тест работы с БД
+        }
     }
 
     private fun initCollect() {

@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.common.NavHostsInfo
 import com.example.common.SportsQuizFragment
-import com.example.data.db.QuestionsInfoDAO
 import com.example.main_screen_ui.R
 import com.example.main_screen_ui.databinding.FragmentScreenStartBinding
 import com.example.main_screen_ui.di.MainScreenComponentViewModel
@@ -24,9 +23,6 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
 
     @Inject
     lateinit var navHostsInfo: NavHostsInfo
-
-    @Inject
-    lateinit var db: QuestionsInfoDAO
 
     private val viewModel by viewModels<ViewModelScreenStart> {
         factory

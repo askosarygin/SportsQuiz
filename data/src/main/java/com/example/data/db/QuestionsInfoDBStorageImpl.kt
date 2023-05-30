@@ -1,33 +1,34 @@
 package com.example.data.db
 
+import com.example.common.Difficult
 import com.example.common.QuestionInfoDB
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class QuestionsInfoStorageImpl @Inject constructor(
-    private val questionsInfoDB: QuestionsInfoDAO
-) : QuestionsInfoStorage {
+class QuestionsInfoDBStorageImpl @Inject constructor(
+    private val questionsInfoDatabase: QuestionsInfoDAO
+) : QuestionsInfoDBStorage {
 
     init {
-//        addQuestionsInfoToDB() //TODO раскомментить когда будет готово к загрузке в БД
+        addQuestionsInfoToDB()
     }
 
     private fun addQuestionsInfoToDB() {
         GlobalScope.launch { //todo по идее вопросы должны подтягиваться из сети, а так имитация подтягивания из сети
 
-            val allQuestionsInfo = questionsInfoDB.getAll()
+            val allQuestionsInfo = questionsInfoDatabase.getAll()
 
             if (allQuestionsInfo.isEmpty()) {
-                QuestionsForAddToDBService.listOfEasyQuestionsInfo.forEach { questionInfo ->
+                QuestionsForAddToDBService.listOfEasyQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
 
-                QuestionsForAddToDBService.listOfNormalQuestionsInfo.forEach { questionInfo ->
+                QuestionsForAddToDBService.listOfNormalQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
 
-                QuestionsForAddToDBService.listOfHardQuestionsInfo.forEach { questionInfo ->
+                QuestionsForAddToDBService.listOfHardQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
             }
@@ -45,7 +46,7 @@ class QuestionsInfoStorageImpl @Inject constructor(
             questionInfoDB.difficultyLevel
         )
 
-        val allQuestionsInfo = questionsInfoDB.getAll()
+        val allQuestionsInfo = questionsInfoDatabase.getAll()
 
         allQuestionsInfo.forEach {
             if (it.questionText == newQuestionInfoDatabaseClass.questionText &&
@@ -59,38 +60,12 @@ class QuestionsInfoStorageImpl @Inject constructor(
             }
         }
 
-        questionsInfoDB.add(newQuestionInfoDatabaseClass)
+        questionsInfoDatabase.add(newQuestionInfoDatabaseClass)
         return true
     }
 
-    override suspend fun getAllEasyQuestionsInfo(): List<QuestionInfoDB> =
-        questionsInfoDB.getAllEasy().map {
-            QuestionInfoDB(
-                it.id,
-                it.questionText,
-                it.correctAnswer,
-                it.incorrectAnswerOne,
-                it.incorrectAnswerTwo,
-                it.incorrectAnswerThree,
-                it.difficultyLevel
-            )
-        }
-
-    override suspend fun getAllNormalQuestionsInfo(): List<QuestionInfoDB> =
-        questionsInfoDB.getAllNormal().map {
-            QuestionInfoDB(
-                it.id,
-                it.questionText,
-                it.correctAnswer,
-                it.incorrectAnswerOne,
-                it.incorrectAnswerTwo,
-                it.incorrectAnswerThree,
-                it.difficultyLevel
-            )
-        }
-
-    override suspend fun getAllHardQuestionsInfo(): List<QuestionInfoDB> =
-        questionsInfoDB.getAllHard().map {
+    override suspend fun getAllWithDifficult(difficult: Difficult): List<QuestionInfoDB> =
+        questionsInfoDatabase.getAllWithDifficult(difficult.name).map {
             QuestionInfoDB(
                 it.id,
                 it.questionText,

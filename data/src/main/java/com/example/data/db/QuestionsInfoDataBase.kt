@@ -36,14 +36,8 @@ interface QuestionsInfoDAO {
     @Query("SELECT * FROM $TABLE_NAME_QUESTIONS_AND_ANSWERS")
     fun getAll(): List<QuestionInfoDatabaseClass>
 
-    @Query("SELECT * FROM $TABLE_NAME_QUESTIONS_AND_ANSWERS WHERE $DIFFICULTY_LEVEL='$EASY'")
-    fun getAllEasy(): List<QuestionInfoDatabaseClass>
-
-    @Query("SELECT * FROM $TABLE_NAME_QUESTIONS_AND_ANSWERS WHERE $DIFFICULTY_LEVEL='$NORMAL'")
-    fun getAllNormal(): List<QuestionInfoDatabaseClass>
-
-    @Query("SELECT * FROM $TABLE_NAME_QUESTIONS_AND_ANSWERS WHERE $DIFFICULTY_LEVEL='$HARD'")
-    fun getAllHard(): List<QuestionInfoDatabaseClass>
+    @Query("SELECT * FROM $TABLE_NAME_QUESTIONS_AND_ANSWERS WHERE $DIFFICULTY_LEVEL=(:difficult)")
+    fun getAllWithDifficult(difficult: String): List<QuestionInfoDatabaseClass>
 }
 
 @Database(entities = [QuestionInfoDatabaseClass::class], version = 1, exportSchema = false)

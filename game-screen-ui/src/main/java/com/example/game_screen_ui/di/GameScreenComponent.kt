@@ -2,11 +2,22 @@ package com.example.game_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.data.RepositoryGameScreenDomainImpl
 import com.example.data.db.QuestionsInfoDAO
+import com.example.data.db.QuestionsInfoDBStorage
+import com.example.data.db.QuestionsInfoDBStorageImpl
+import com.example.game_screen_domain.Interactor
+import com.example.game_screen_domain.InteractorImpl
+import com.example.game_screen_domain.Repository
 import com.example.game_screen_ui.screen_difficulty_selection.FragmentScreenDifficultySelection
 import com.example.game_screen_ui.screen_game.FragmentScreenGame
+import dagger.Binds
 import dagger.Component
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -32,25 +43,30 @@ internal interface GameScreenComponent {
 }
 
 @Module
-class GameScreenModule
+class GameScreenModule {
+
+    @Provides
+    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+}
 
 @Module
 interface GameScreenModuleBinds {
 
-//    @Binds
-//    fun bindInteractorImplToInteractor(
-//        interactorImpl: InteractorImpl
-//    ): Interactor
-//
-//    @Binds
-//    fun bindRepositoryImplToRepository(
-//        repositoryLoginDomainImpl: RepositoryLoginDomainImpl
-//    ): Repository
-//
-//    @Binds
-//    fun bindAccountDataLoaderImplToAccountDataLoader(
-//        accountDataLoaderImpl: AccountDataLoaderImpl
-//    ): AccountDataLoader
+    @Binds
+    fun bindRepositoryGameScreenDomainImplToRepository(
+        repositoryGameScreenDomainImpl: RepositoryGameScreenDomainImpl
+    ): Repository
+
+    @Binds
+    fun bindInteractorImplToInteractor(
+        interactorImpl: InteractorImpl
+    ): Interactor
+
+    @Binds
+    fun bindQuestionsInfoDBStorageImplToQuestionsInfoDBStorage(
+        questionsInfoDBStorageImpl: QuestionsInfoDBStorageImpl
+    ): QuestionsInfoDBStorage
 }
 
 interface GameScreenComponentDependencies {

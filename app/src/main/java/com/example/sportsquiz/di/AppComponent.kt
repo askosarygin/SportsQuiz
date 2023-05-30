@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.common.NavHostsInfo
 import com.example.data.db.QuestionsInfoDAO
+import com.example.data.db.QuestionsInfoDBStorage
+import com.example.data.db.QuestionsInfoDBStorageImpl
 import com.example.data.db.QuestionsInfoDatabase
-import com.example.data.db.QuestionsInfoStorage
-import com.example.data.db.QuestionsInfoStorageImpl
 import com.example.game_screen_ui.di.GameScreenComponentDependencies
 import com.example.main_screen_ui.di.MainScreenComponentDependencies
 import com.example.sportsquiz.R
@@ -26,6 +26,7 @@ interface AppComponent
     WallpapersScreenComponentDependencies {
 
     override val navHostsInfo: NavHostsInfo
+//    override val questionsInfoDBStorage: QuestionsInfoDBStorage
     override val questionsInfoDAO: QuestionsInfoDAO
 
     @Component.Builder
@@ -59,10 +60,11 @@ class AppModule {
 
 @Module
 interface AppModuleBinds {
+
     @Binds
     fun bindQuestionsInfoStorageImplToQuestionsInfoStorage(
-        questionsInfoStorageImpl: QuestionsInfoStorageImpl
-    ): QuestionsInfoStorage
+        questionsInfoStorageImpl: QuestionsInfoDBStorageImpl
+    ): QuestionsInfoDBStorage
 }
 
 @Scope

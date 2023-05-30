@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.common.SportsQuizFragment
 import com.example.game_screen_ui.R
 import com.example.game_screen_ui.databinding.FragmentScreenDifficultySelectionBinding
@@ -63,7 +64,9 @@ class FragmentScreenDifficultySelection : SportsQuizFragment(R.layout.fragment_s
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameEasy ->
-                            Log.i("MY_TAG", "Переход на экран игры с передачей параметров ЛЁГКОЙ сложности")
+                            findNavController().navigate(
+                                R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame
+                            )
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameNormal ->
                             Log.i("MY_TAG", "Переход на экран игры с передачей параметров НОРМАЛЬНОЙ сложности")
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameHard ->

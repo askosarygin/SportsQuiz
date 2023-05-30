@@ -3,6 +3,7 @@ package com.example.game_screen_ui.di
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
 import com.example.game_screen_ui.screen_difficulty_selection.FragmentScreenDifficultySelection
+import com.example.game_screen_ui.screen_game.FragmentScreenGame
 import dagger.Component
 import dagger.Module
 import javax.inject.Scope
@@ -18,6 +19,7 @@ import kotlin.properties.Delegates
 internal interface GameScreenComponent {
 
     fun inject(fragmentScreenDifficultySelection: FragmentScreenDifficultySelection)
+    fun inject(fragmentScreenGame: FragmentScreenGame)
 
     @Component.Builder
     interface Builder {

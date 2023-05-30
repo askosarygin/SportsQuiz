@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/fragmentScreenDifficultySelection"
         android:name="com.example.game_screen_ui.screen_difficulty_selection.FragmentScreenDifficultySelection"
-        android:label="FragmentScreenDifficultySelection" />
+        android:label="FragmentScreenDifficultySelection" >
+        <action
+            android:id="@+id/action_fragmentScreenDifficultySelection_to_fragmentScreenGame"
+            app:destination="@id/fragmentScreenGame" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentScreenGame"
+        android:name="com.example.game_screen_ui.screen_game.FragmentScreenGame"
+        android:label="FragmentScreenGame" />
 </navigation>

@@ -20,7 +20,6 @@
         app:layout_constraintGuide_end="43dp" />
 
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_balance_text"
         android:layout_width="wrap_content"
@@ -35,12 +34,11 @@
         android:id="@+id/tv_balance_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_header"
-        tools:text="100"
-        app:layout_constraintVertical_bias="0.4"/>
+        tools:text="100" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -49,38 +47,36 @@
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"
         android:gravity="center"
-        android:paddingVertical="10dp"
         android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
         android:text="@string/back"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toTopOf="@id/tv_balance_count"
-        app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"/>
-
+        app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="@string/welcome_to_the_wallpapers_store"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
-
+        app:layout_constraintTop_toBottomOf="@id/tv_balance_count" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_wallpapers"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_header"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_header" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

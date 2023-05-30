@@ -5,4 +5,10 @@
     <string name="new_game">New game</string>
     <string name="wallpapers_store">Wallpapers store</string>
     <string name="greetings">Greetings on Sports Quiz!</string>
+
+    //Difficulty Selection
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="message_select_difficulty">Select the difficulty of the quiz</string>
 </resources>

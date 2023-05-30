@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph_game_screen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_game_screen"
+    app:startDestination="@id/fragmentScreenDifficultySelection">
 
-
+    <fragment
+        android:id="@+id/fragmentScreenDifficultySelection"
+        android:name="com.example.game_screen_ui.screen_difficulty_selection.FragmentScreenDifficultySelection"
+        android:label="FragmentScreenDifficultySelection" />
 </navigation>

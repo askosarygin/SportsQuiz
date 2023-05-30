@@ -1,5 +1,6 @@
 package com.example.main_screen_ui.screen_start
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.common.NavHostsInfo
 import com.example.common.SportsQuizFragment
 import com.example.main_screen_ui.R
@@ -63,7 +65,12 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
                         ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
-                            Log.i("MY_TAG", "Переход на экран выбора сложности")
+                            Navigation.findNavController(
+                                requireActivity(),
+                                navHostsInfo.globalNavHostId
+                            ).navigate(
+                                Uri.parse("sports-quiz://game-screen")
+                            )
                         ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenWallpapersStore ->
                             Log.i("MY_TAG", "Переход на экран магазина обоев")
                     }

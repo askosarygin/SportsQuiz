@@ -16,6 +16,7 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
+            .context(this)
             .build()
 
         GameScreenComponentDependenciesStore.dependencies = appComponent

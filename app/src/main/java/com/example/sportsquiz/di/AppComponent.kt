@@ -1,13 +1,17 @@
 package com.example.sportsquiz.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.common.NavHostsInfo
+import com.example.data.db.QuestionsInfoDAO
+import com.example.data.db.QuestionsInfoDatabase
+import com.example.data.db.QuestionsInfoStorage
+import com.example.data.db.QuestionsInfoStorageImpl
 import com.example.game_screen_ui.di.GameScreenComponentDependencies
 import com.example.main_screen_ui.di.MainScreenComponentDependencies
 import com.example.sportsquiz.R
 import com.example.wallpapers_screen_ui.di.WallpapersScreenComponentDependencies
-import dagger.Component
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import javax.inject.Scope
 
 @[AppScope Component(
@@ -22,12 +26,13 @@ interface AppComponent
     WallpapersScreenComponentDependencies {
 
     override val navHostsInfo: NavHostsInfo
+    override val questionsInfoDAO: QuestionsInfoDAO
 
     @Component.Builder
     interface Builder {
 
-//        @BindsInstance
-//        fun context(): Builder
+        @BindsInstance
+        fun context(context: Context): Builder
 
         fun build(): AppComponent
     }
@@ -41,10 +46,24 @@ class AppModule {
         globalNavHostId = R.id.global_fragment_container_view
     )
 
+    @Provides
+    fun provideQuestionsInfoDB(context: Context): QuestionsInfoDAO {
+        val db = Room.databaseBuilder(
+            context,
+            QuestionsInfoDatabase::class.java,
+            "sports_quiz_database"
+        ).build()
+        return db.questionsInfoDAO()
+    }
 }
 
 @Module
-interface AppModuleBinds
+interface AppModuleBinds {
+    @Binds
+    fun bindQuestionsInfoStorageImplToQuestionsInfoStorage(
+        questionsInfoStorageImpl: QuestionsInfoStorageImpl
+    ): QuestionsInfoStorage
+}
 
 @Scope
 annotation class AppScope

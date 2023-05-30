@@ -46,6 +46,10 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$extJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
     implementation "com.google.dagger:dagger:$jetpackDaggerVersion"
     kapt "com.google.dagger:dagger-compiler:$jetpackDaggerVersion"
 

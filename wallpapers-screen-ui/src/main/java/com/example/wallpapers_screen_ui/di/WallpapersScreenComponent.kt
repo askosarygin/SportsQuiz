@@ -2,6 +2,7 @@ package com.example.wallpapers_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.data.db.QuestionsInfoDAO
 import com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore
 import dagger.Component
 import dagger.Module
@@ -52,6 +53,7 @@ interface WallpapersScreenModuleBinds {
 
 interface WallpapersScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
+    val questionsInfoDAO: QuestionsInfoDAO
 }
 
 object WallpapersScreenComponentDependenciesStore {

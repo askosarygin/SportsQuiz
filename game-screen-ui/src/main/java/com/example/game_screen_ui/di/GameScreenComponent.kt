@@ -2,6 +2,7 @@ package com.example.game_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.data.db.QuestionsInfoDAO
 import com.example.game_screen_ui.screen_difficulty_selection.FragmentScreenDifficultySelection
 import com.example.game_screen_ui.screen_game.FragmentScreenGame
 import dagger.Component
@@ -54,6 +55,7 @@ interface GameScreenModuleBinds {
 
 interface GameScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
+    val questionsInfoDAO: QuestionsInfoDAO
 }
 
 object GameScreenComponentDependenciesStore {

@@ -2,6 +2,7 @@ package com.example.main_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.data.db.QuestionsInfoDAO
 import com.example.main_screen_ui.screen_start.FragmentScreenStart
 import dagger.Component
 import dagger.Module
@@ -52,6 +53,7 @@ interface MainScreenModuleBinds {
 
 interface MainScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
+    val questionsInfoDAO: QuestionsInfoDAO
 }
 
 object MainScreenComponentDependenciesStore {

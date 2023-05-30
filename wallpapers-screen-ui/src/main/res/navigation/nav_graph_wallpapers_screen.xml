@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph_wallpapers_screen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_wallpapers_screen"
+    app:startDestination="@id/fragmentScreenWallpapersStore">
 
+    <fragment
+        android:id="@+id/fragmentScreenWallpapersStore"
+        android:name="com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore"
+        android:label="FragmentScreenWallpapersStore" />
 </navigation>

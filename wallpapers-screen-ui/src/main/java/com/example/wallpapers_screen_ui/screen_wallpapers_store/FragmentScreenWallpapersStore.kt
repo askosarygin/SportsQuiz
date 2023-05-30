@@ -1,4 +1,4 @@
-package com.example.main_screen_ui.screen_start
+package com.example.wallpapers_screen_ui.screen_wallpapers_store
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,21 +10,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.common.NavHostsInfo
 import com.example.common.SportsQuizFragment
-import com.example.main_screen_ui.R
-import com.example.main_screen_ui.databinding.FragmentScreenStartBinding
-import com.example.main_screen_ui.di.MainScreenComponentViewModel
+import com.example.wallpapers_screen_ui.R
+import com.example.wallpapers_screen_ui.databinding.FragmentScreenWallpapersStoreBinding
+import com.example.wallpapers_screen_ui.di.WallpapersScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
-    private lateinit var binding: FragmentScreenStartBinding
+class FragmentScreenWallpapersStore : SportsQuizFragment(R.layout.fragment_screen_wallpapers_store) {
+    private lateinit var binding: FragmentScreenWallpapersStoreBinding
 
     @Inject
-    lateinit var factory: ViewModelScreenStart.Factory
+    lateinit var factory: ViewModelScreenWallpapersStore.Factory
 
     @Inject
     lateinit var navHostsInfo: NavHostsInfo
 
-    private val viewModel by viewModels<ViewModelScreenStart> {
+    private val viewModel by viewModels<ViewModelScreenWallpapersStore> {
         factory
     }
 
@@ -33,13 +33,13 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentScreenStartBinding.inflate(
+        binding = FragmentScreenWallpapersStoreBinding.inflate(
             inflater,
             container,
             false
         )
 
-        MainScreenComponentViewModel.getComponent().inject(this)
+        WallpapersScreenComponentViewModel.getComponent().inject(this)
 
         initCollect()
 
@@ -49,12 +49,8 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
     }
 
     private fun initListeners() {
-        binding.btnNewGame.setOnClickListener {
-            viewModel.buttonNewGamePressed()
-        }
-
-        binding.btnWallpapersStore.setOnClickListener {
-            viewModel.buttonWallpapersStorePressed()
+        binding.btnBack.setOnClickListener {
+            viewModel.buttonBackPressed()
         }
     }
 
@@ -63,19 +59,12 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
+                        ViewModelScreenWallpapersStore.Model.NavigationEvent.NavigationDestination.ScreenStart ->
                             Navigation.findNavController(
                                 requireActivity(),
                                 navHostsInfo.globalNavHostId
                             ).navigate(
-                                Uri.parse("sports-quiz://game-screen")
-                            )
-                        ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenWallpapersStore ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                navHostsInfo.globalNavHostId
-                            ).navigate(
-                                Uri.parse("sports-quiz://wallpapers-screen")
+                                Uri.parse("sports-quiz://main-screen")
                             )
                     }
                 }

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Sports Quiz</string>
 
+    //Common
+    <string name="back">Back</string>
+
     //Screen start
     <string name="new_game">New game</string>
     <string name="wallpapers_store">Wallpapers store</string>
@@ -11,4 +14,8 @@
     <string name="normal">Normal</string>
     <string name="hard">Hard</string>
     <string name="message_select_difficulty">Select the difficulty of the quiz</string>
+
+    //Wallpapers store
+    <string name="welcome_to_the_wallpapers_store">Welcome to the Wallpapers store</string>
+    <string name="points_balance">Your points balance:</string>
 </resources>

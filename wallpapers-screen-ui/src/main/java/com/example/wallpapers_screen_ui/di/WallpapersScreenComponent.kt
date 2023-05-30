@@ -2,6 +2,7 @@ package com.example.wallpapers_screen_ui.di
 
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
+import com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore
 import dagger.Component
 import dagger.Module
 import javax.inject.Scope
@@ -16,7 +17,7 @@ import kotlin.properties.Delegates
 )]
 internal interface WallpapersScreenComponent {
 
-//    fun inject(fragmentScreenAuthorization: FragmentScreenAuthorization)
+    fun inject(fragmentScreenWallpapersStore: FragmentScreenWallpapersStore)
 
     @Component.Builder
     interface Builder {

@@ -1,20 +1,21 @@
 package com.example.game_screen_ui.screen_difficulty_selection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import com.example.common.Difficult
+import com.example.common.DifficultLevel
 import com.example.common.SportsQuizFragment
 import com.example.game_screen_ui.R
 import com.example.game_screen_ui.databinding.FragmentScreenDifficultySelectionBinding
 import com.example.game_screen_ui.di.GameScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenDifficultySelection : SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
+class FragmentScreenDifficultySelection :
+    SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
     private lateinit var binding: FragmentScreenDifficultySelectionBinding
 
     @Inject
@@ -64,13 +65,29 @@ class FragmentScreenDifficultySelection : SportsQuizFragment(R.layout.fragment_s
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameEasy ->
-                            findNavController().navigate(
-                                R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame
+                            navigateToActionId(
+                                R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
+                                DifficultLevel(
+                                    Difficult.Easy.name
+                                ),
+                                resources.getString(com.example.common.R.string.bundle_key_difficult)
                             )
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameNormal ->
-                            Log.i("MY_TAG", "Переход на экран игры с передачей параметров НОРМАЛЬНОЙ сложности")
+                            navigateToActionId(
+                                R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
+                                DifficultLevel(
+                                    Difficult.Normal.name
+                                ),
+                                resources.getString(com.example.common.R.string.bundle_key_difficult)
+                            )
                         ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameHard ->
-                            Log.i("MY_TAG", "Переход на экран игры с передачей параметров ТЯЖЁЛОЙ сложности")
+                            navigateToActionId(
+                                R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
+                                DifficultLevel(
+                                    Difficult.Hard.name
+                                ),
+                                resources.getString(com.example.common.R.string.bundle_key_difficult)
+                            )
                     }
                 }
             }

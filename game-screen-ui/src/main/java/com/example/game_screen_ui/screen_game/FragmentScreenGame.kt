@@ -1,17 +1,12 @@
 package com.example.game_screen_ui.screen_game
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.example.common.NavHostsInfo
-import com.example.common.SportsQuizFragment
-import com.example.common.SportsQuizTwoButtonsDialogFragment
+import com.example.common.*
 import com.example.game_screen_ui.R
 import com.example.game_screen_ui.databinding.FragmentScreenGameBinding
 import com.example.game_screen_ui.di.GameScreenComponentViewModel
@@ -50,10 +45,22 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
         return binding.root
     }
 
-    private fun initListeners() {
-        binding.tvPointsText.setOnClickListener { //todo тест запуска
-            viewModel.loadEasyQuestionsInfo()
+    override fun onResume() {
+        super.onResume()
+
+        val difficultLevel = getBundleDifficult(resources.getString(com.example.common.R.string.bundle_key_difficult)) as DifficultLevel
+
+        when (difficultLevel.difficultLevel) {
+            Difficult.Easy.name -> viewModel.loadEasyQuestionsInfo()
+            Difficult.Normal.name -> viewModel.loadNormalQuestionsInfo()
+            Difficult.Hard.name -> viewModel.loadHardQuestionsInfo()
         }
+    }
+
+    private fun initListeners() {
+//        binding.tvPointsText.setOnClickListener { //todo тест запуска
+//            viewModel.loadEasyQuestionsInfo()
+//        }
 
         binding.tvAnswerOne.setOnClickListener {
             viewModel.answerOneToggleSelection()
@@ -78,7 +85,9 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
                         ViewModelScreenGame.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
-                            TODO()
+                            navigateToActionId(
+                                R.id.action_fragmentScreenGame_to_fragmentScreenDifficultySelection
+                            )
                     }
                 }
             }
@@ -107,16 +116,16 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                                 }",
                                 positiveButtonText = com.example.common.R.string.main_screen,
                                 positiveButtonAction = { _, _ ->
-                                    Navigation.findNavController(
-                                        requireActivity(),
+                                    navigateToModule(
+                                        ModuleNames.MainScreen,
                                         navHostsInfo.globalNavHostId
-                                    ).navigate(
-                                        Uri.parse("sports-quiz://main-screen")
                                     )
                                 },
                                 negativeButtonText = com.example.common.R.string.play_again,
                                 negativeButtonAction = { _, _ ->
-                                    findNavController().navigate(R.id.action_fragmentScreenGame_to_fragmentScreenDifficultySelection)
+                                    navigateToActionId(
+                                        R.id.action_fragmentScreenGame_to_fragmentScreenDifficultySelection
+                                    )
                                 }
                             ).showDialog()
                     }

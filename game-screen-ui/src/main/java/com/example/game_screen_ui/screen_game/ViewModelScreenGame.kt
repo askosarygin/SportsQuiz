@@ -47,10 +47,6 @@ class ViewModelScreenGame(
         startTimer(5)
     }
 
-    fun buttonPlayAgainPressed() {
-
-    }
-
     private fun startTimer(seconds: Int) {
         coroutineScopeIO.launch {
             for (sec in seconds downTo 1) {

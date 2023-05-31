@@ -13,7 +13,8 @@ open class SportsQuizTwoButtonsDialogFragment(
     private val dialogTag: String = "",
     @StringRes private val title: Int = 0,
     private val message: String = "",
-    private val cancelable: Boolean = true,
+    private val backPressedCancelable: Boolean = false,
+    private val onTouchOutsideCancelable: Boolean = false,
     @StringRes private val positiveButtonText: Int = 0,
     private val positiveButtonAction: (DialogInterface, Int) -> Unit = { _, _ -> },
     @StringRes private val negativeButtonText: Int = 0,
@@ -25,18 +26,21 @@ open class SportsQuizTwoButtonsDialogFragment(
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        isCancelable = backPressedCancelable
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle(title)
                 .setMessage(message)
-                .setCancelable(cancelable)
                 .setPositiveButton(positiveButtonText) { dialog, id ->
                     positiveButtonAction(dialog, id)
                 }
                 .setNegativeButton(negativeButtonText) { dialog, id ->
                     negativeButtonAction(dialog, id)
                 }
-            builder.create()
+                .create()
+                .apply {
+                    setCanceledOnTouchOutside(onTouchOutsideCancelable)
+                }
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 }

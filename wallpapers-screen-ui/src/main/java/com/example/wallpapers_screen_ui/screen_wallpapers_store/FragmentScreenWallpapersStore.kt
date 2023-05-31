@@ -1,13 +1,12 @@
 package com.example.wallpapers_screen_ui.screen_wallpapers_store
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
+import com.example.common.ModuleNames
 import com.example.common.NavHostsInfo
 import com.example.common.SportsQuizFragment
 import com.example.wallpapers_screen_ui.R
@@ -15,7 +14,8 @@ import com.example.wallpapers_screen_ui.databinding.FragmentScreenWallpapersStor
 import com.example.wallpapers_screen_ui.di.WallpapersScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenWallpapersStore : SportsQuizFragment(R.layout.fragment_screen_wallpapers_store) {
+class FragmentScreenWallpapersStore :
+    SportsQuizFragment(R.layout.fragment_screen_wallpapers_store) {
     private lateinit var binding: FragmentScreenWallpapersStoreBinding
 
     @Inject
@@ -60,11 +60,9 @@ class FragmentScreenWallpapersStore : SportsQuizFragment(R.layout.fragment_scree
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
                         ViewModelScreenWallpapersStore.Model.NavigationEvent.NavigationDestination.ScreenStart ->
-                            Navigation.findNavController(
-                                requireActivity(),
+                            navigateToModule(
+                                ModuleNames.MainScreen,
                                 navHostsInfo.globalNavHostId
-                            ).navigate(
-                                Uri.parse("sports-quiz://main-screen")
                             )
                     }
                 }

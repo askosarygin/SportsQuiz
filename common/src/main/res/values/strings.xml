@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Sports Quiz</string>
 
+    //Deep links
+    <string name="deep_link_game_screen">sports-quiz://game-screen</string>
+    <string name="deep_link_main_screen">sports-quiz://main-screen</string>
+    <string name="deep_link_wallpapers_screen">sports-quiz://wallpapers-screen</string>
+
+    //Service
+    <string name="bundle_key_difficult">difficult</string>
+
     //Common
     <string name="back">Back</string>
-
 
     //Screen start
     <string name="new_game">New game</string>

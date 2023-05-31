@@ -17,6 +17,7 @@ class MainApp : Application() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
             .context(this)
+            .resources(resources)
             .build()
 
         GameScreenComponentDependenciesStore.dependencies = appComponent

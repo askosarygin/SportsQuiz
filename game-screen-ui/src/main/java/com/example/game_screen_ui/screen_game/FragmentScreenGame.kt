@@ -58,10 +58,6 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
     }
 
     private fun initListeners() {
-//        binding.tvPointsText.setOnClickListener { //todo тест запуска
-//            viewModel.loadEasyQuestionsInfo()
-//        }
-
         binding.tvAnswerOne.setOnClickListener {
             viewModel.answerOneToggleSelection()
         }

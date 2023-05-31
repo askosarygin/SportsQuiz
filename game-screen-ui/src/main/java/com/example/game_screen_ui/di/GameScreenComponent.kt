@@ -1,5 +1,7 @@
 package com.example.game_screen_ui.di
 
+import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
 import com.example.data.RepositoryGameScreenDomainImpl
@@ -72,6 +74,8 @@ interface GameScreenModuleBinds {
 interface GameScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
     val questionsInfoDAO: QuestionsInfoDAO
+    val resources: Resources
+    val sharedPreferences: SharedPreferences
 }
 
 object GameScreenComponentDependenciesStore {

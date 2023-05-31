@@ -5,6 +5,8 @@ import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
 import com.example.data.RepositoryGameScreenDomainImpl
+import com.example.data.account_data.AccountDataStorage
+import com.example.data.account_data.AccountDataStorageImpl
 import com.example.data.db.QuestionsInfoDAO
 import com.example.data.db.QuestionsInfoDBStorage
 import com.example.data.db.QuestionsInfoDBStorageImpl
@@ -69,6 +71,11 @@ interface GameScreenModuleBinds {
     fun bindQuestionsInfoDBStorageImplToQuestionsInfoDBStorage(
         questionsInfoDBStorageImpl: QuestionsInfoDBStorageImpl
     ): QuestionsInfoDBStorage
+
+    @Binds
+    fun bindAccountDataStorageImplToAccountDataStorage(
+        accountDataStorageImpl: AccountDataStorageImpl
+    ): AccountDataStorage
 }
 
 interface GameScreenComponentDependencies {

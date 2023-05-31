@@ -4,9 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.SportsQuizViewModel
 import com.example.common.SportsQuizViewModelEvent
+import com.example.main_screen_domain.Interactor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ViewModelScreenStart : SportsQuizViewModel<ViewModelScreenStart.Model>(Model()) {
+class ViewModelScreenStart(
+    private val interactor: Interactor,
+    private val coroutineScopeIO: CoroutineScope
+) : SportsQuizViewModel<ViewModelScreenStart.Model>(Model()) {
 
     fun buttonNewGamePressed() {
         updateNavigationEvent(
@@ -24,6 +30,14 @@ class ViewModelScreenStart : SportsQuizViewModel<ViewModelScreenStart.Model>(Mod
         )
     }
 
+    fun getPoints() {
+        coroutineScopeIO.launch {
+            val points = interactor.getPointsFromAccountDataStorage()
+
+            updatePoints(points)
+        }
+    }
+
     private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
         update {
             it.copy(
@@ -32,7 +46,16 @@ class ViewModelScreenStart : SportsQuizViewModel<ViewModelScreenStart.Model>(Mod
         }
     }
 
+    private fun updatePoints(points: Int) {
+        update {
+            it.copy(
+                points = points
+            )
+        }
+    }
+
     data class Model(
+        val points: Int = 0,
         val navigationEvent: NavigationEvent? = null
     ) {
         class NavigationEvent(
@@ -45,11 +68,17 @@ class ViewModelScreenStart : SportsQuizViewModel<ViewModelScreenStart.Model>(Mod
         }
     }
 
-    class Factory @Inject constructor() : ViewModelProvider.Factory {
+    class Factory @Inject constructor(
+        private val interactor: Interactor,
+        private val coroutineScopeIO: CoroutineScope
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == ViewModelScreenStart::class.java)
-            return ViewModelScreenStart() as T
+            return ViewModelScreenStart(
+                interactor,
+                coroutineScopeIO
+            ) as T
         }
     }
 }

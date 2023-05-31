@@ -8,4 +8,8 @@ interface Interactor {
     suspend fun loadNormalQuestionsInfoFromDB(): List<QuestionInfo>
 
     suspend fun loadHardQuestionsInfoFromDB(): List<QuestionInfo>
+
+    suspend fun getPointsFromAccountDataStorage(): Int
+
+    suspend fun savePointsToAccountDataStorage(points: Int): Boolean
 }

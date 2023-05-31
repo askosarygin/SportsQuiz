@@ -27,7 +27,8 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"
         app:layout_constraintEnd_toStartOf="@id/tv_balance_count"
-        app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
+        app:layout_constraintTop_toTopOf="@id/tv_balance_count"
+        android:layout_marginEnd="5dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_balance_count"

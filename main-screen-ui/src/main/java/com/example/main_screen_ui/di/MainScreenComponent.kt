@@ -1,11 +1,23 @@
 package com.example.main_screen_ui.di
 
+import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
-import com.example.data.db.QuestionsInfoDBStorage
+import com.example.data.RepositoryMainScreenDomainImpl
+import com.example.data.account_data.AccountDataStorage
+import com.example.data.account_data.AccountDataStorageImpl
+import com.example.main_screen_domain.Interactor
+import com.example.main_screen_domain.InteractorImpl
+import com.example.main_screen_domain.Repository
 import com.example.main_screen_ui.screen_start.FragmentScreenStart
+import dagger.Binds
 import dagger.Component
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -30,30 +42,34 @@ internal interface MainScreenComponent {
 }
 
 @Module
-class MainScreenModule
+class MainScreenModule {
+    @Provides
+    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+}
 
 @Module
 interface MainScreenModuleBinds {
 
-//    @Binds
-//    fun bindInteractorImplToInteractor(
-//        interactorImpl: InteractorImpl
-//    ): Interactor
-//
-//    @Binds
-//    fun bindRepositoryImplToRepository(
-//        repositoryLoginDomainImpl: RepositoryLoginDomainImpl
-//    ): Repository
-//
-//    @Binds
-//    fun bindAccountDataLoaderImplToAccountDataLoader(
-//        accountDataLoaderImpl: AccountDataLoaderImpl
-//    ): AccountDataLoader
+    @Binds
+    fun bindInteractorImplToInteractor(
+        interactorImpl: InteractorImpl
+    ): Interactor
+
+    @Binds
+    fun bindRepositoryImplToRepository(
+        repositoryMainScreenDomainImpl: RepositoryMainScreenDomainImpl
+    ): Repository
+
+    @Binds
+    fun bindAccountDataStorageImplToAccountDataStorage(
+        accountDataStorageImpl: AccountDataStorageImpl
+    ): AccountDataStorage
 }
 
 interface MainScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
-    val questionsInfoDBStorage: QuestionsInfoDBStorage
+    val resources: Resources
+    val sharedPreferences: SharedPreferences
 }
 
 object MainScreenComponentDependenciesStore {

@@ -47,6 +47,12 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
         return binding.root
     }
 
+    override fun onResume() {
+        viewModel.getPoints()
+
+        super.onResume()
+    }
+
     private fun initListeners() {
         binding.btnNewGame.setOnClickListener {
             viewModel.buttonNewGamePressed()
@@ -74,6 +80,10 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
                             )
                     }
                 }
+            }
+
+            if (oldModel?.points != newModel.points) {
+                binding.tvBalanceCount.text = newModel.points.toString()
             }
         }
     }

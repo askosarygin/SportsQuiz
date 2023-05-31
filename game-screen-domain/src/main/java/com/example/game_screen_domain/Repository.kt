@@ -5,4 +5,8 @@ import com.example.common.QuestionInfoDB
 
 interface Repository {
     suspend fun loadQuestionsInfoDBWithDifficult(difficult: Difficult): List<QuestionInfoDB>
+
+    suspend fun getPointsFromAccountDataStorage(): Int
+
+    suspend fun savePointsToAccountDataStorage(points: Int): Boolean
 }

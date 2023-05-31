@@ -2,16 +2,16 @@ package com.example.main_screen_ui.screen_start
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.common.SportsQuizViewModel
 import com.example.common.SportsQuizViewModelEvent
 import com.example.main_screen_domain.Interactor
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ViewModelScreenStart(
-    private val interactor: Interactor,
-    private val coroutineScopeIO: CoroutineScope
+    private val interactor: Interactor
 ) : SportsQuizViewModel<ViewModelScreenStart.Model>(Model()) {
 
     fun buttonNewGamePressed() {
@@ -31,7 +31,7 @@ class ViewModelScreenStart(
     }
 
     fun getPoints() {
-        coroutineScopeIO.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val points = interactor.getPointsFromAccountDataStorage()
 
             updatePoints(points)
@@ -69,15 +69,13 @@ class ViewModelScreenStart(
     }
 
     class Factory @Inject constructor(
-        private val interactor: Interactor,
-        private val coroutineScopeIO: CoroutineScope
+        private val interactor: Interactor
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == ViewModelScreenStart::class.java)
             return ViewModelScreenStart(
-                interactor,
-                coroutineScopeIO
+                interactor
             ) as T
         }
     }

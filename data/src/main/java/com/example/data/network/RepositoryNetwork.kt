@@ -1,15 +1,11 @@
-package com.example.wallpapers_screen_domain
+package com.example.data.network
 
 import android.graphics.Bitmap
 import com.example.common.ResponseWallpapers
 
-interface Repository {
+interface RepositoryNetwork {
 
     suspend fun downloadBitmapFromUrl(url: String): Bitmap
-
-    suspend fun getPointsFromAccountDataStorage(): Int
-
-    suspend fun savePointsToAccountDataStorage(points: Int): Boolean
 
     suspend fun loadWallpapersFromNet(): ResponseWallpapers
 }

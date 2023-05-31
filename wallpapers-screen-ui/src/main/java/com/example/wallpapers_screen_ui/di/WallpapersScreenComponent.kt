@@ -7,6 +7,8 @@ import com.example.common.NavHostsInfo
 import com.example.data.RepositoryWallpapersScreenDomainImpl
 import com.example.data.account_data.AccountDataStorage
 import com.example.data.account_data.AccountDataStorageImpl
+import com.example.data.network.RepositoryNetwork
+import com.example.data.network.retrofit.API
 import com.example.wallpapers_screen_domain.Interactor
 import com.example.wallpapers_screen_domain.InteractorImpl
 import com.example.wallpapers_screen_domain.Repository
@@ -14,10 +16,6 @@ import com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWa
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -42,10 +40,7 @@ internal interface WallpapersScreenComponent {
 }
 
 @Module
-class WallpapersScreenModule {
-    @Provides
-    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-}
+class WallpapersScreenModule
 
 @Module
 interface WallpapersScreenModuleBinds {
@@ -70,6 +65,8 @@ interface WallpapersScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
     val resources: Resources
     val sharedPreferences: SharedPreferences
+    val api: API
+    val repositoryNetwork: RepositoryNetwork
 }
 
 object WallpapersScreenComponentDependenciesStore {

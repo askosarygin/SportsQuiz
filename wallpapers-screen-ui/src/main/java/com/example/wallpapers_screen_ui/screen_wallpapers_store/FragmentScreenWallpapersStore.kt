@@ -1,14 +1,14 @@
 package com.example.wallpapers_screen_ui.screen_wallpapers_store
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.common.ModuleNames
-import com.example.common.NavHostsInfo
-import com.example.common.SportsQuizFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.common.*
 import com.example.wallpapers_screen_ui.R
 import com.example.wallpapers_screen_ui.databinding.FragmentScreenWallpapersStoreBinding
 import com.example.wallpapers_screen_ui.di.WallpapersScreenComponentViewModel
@@ -28,6 +28,9 @@ class FragmentScreenWallpapersStore :
         factory
     }
 
+    private var wallpapers = arrayListOf<Wallpaper>()
+    private val adapter = RecyclerViewAdapterScreenWallpapersStore(wallpapers)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +48,8 @@ class FragmentScreenWallpapersStore :
 
         initListeners()
 
+        initWallpapers()
+
         return binding.root
     }
 
@@ -52,6 +57,12 @@ class FragmentScreenWallpapersStore :
         viewModel.getPoints()
 
         super.onResume()
+    }
+
+    private fun initWallpapers() {
+        binding.rvWallpapers.addItemDecoration(SpacingItemDecorator(24))
+        binding.rvWallpapers.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvWallpapers.adapter = adapter
     }
 
     private fun initListeners() {
@@ -75,6 +86,16 @@ class FragmentScreenWallpapersStore :
             }
             if (oldModel?.points != newModel.points) {
                 binding.tvBalanceCount.text = newModel.points.toString()
+            }
+            if (oldModel?.wallpapers != newModel.wallpapers) {
+
+                Log.i("My_TAG", newModel.wallpapers.toString())
+
+                wallpapers.apply {
+                    clear()
+                    addAll(newModel.wallpapers)
+                }
+                adapter.notifyDataSetChanged()
             }
         }
     }

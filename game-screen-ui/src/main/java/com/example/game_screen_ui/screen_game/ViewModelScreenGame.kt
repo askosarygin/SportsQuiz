@@ -2,36 +2,36 @@ package com.example.game_screen_ui.screen_game
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.common.QuestionInfo
 import com.example.common.SportsQuizViewModel
 import com.example.common.SportsQuizViewModelEvent
 import com.example.game_screen_domain.Interactor
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ViewModelScreenGame(
-    private val interactor: Interactor,
-    private val coroutineScopeIO: CoroutineScope
+    private val interactor: Interactor
 ) : SportsQuizViewModel<ViewModelScreenGame.Model>(Model()) {
 
     fun loadEasyQuestionsInfo() {
-        coroutineScopeIO.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val questionsInfoLoaded = interactor.loadEasyQuestionsInfoFromDB()
             startGame(questionsInfoLoaded.shuffled())
         }
     }
 
     fun loadNormalQuestionsInfo() {
-        coroutineScopeIO.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val questionsInfoLoaded = interactor.loadNormalQuestionsInfoFromDB()
             startGame(questionsInfoLoaded.shuffled())
         }
     }
 
     fun loadHardQuestionsInfo() {
-        coroutineScopeIO.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val questionsInfoLoaded = interactor.loadHardQuestionsInfoFromDB()
             startGame(questionsInfoLoaded.shuffled())
         }
@@ -48,7 +48,7 @@ class ViewModelScreenGame(
     }
 
     private fun startTimer(seconds: Int) {
-        coroutineScopeIO.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             for (sec in seconds downTo 1) {
                 if (sec < 10) {
                     updateTimer(
@@ -347,15 +347,13 @@ class ViewModelScreenGame(
     }
 
     class Factory @Inject constructor(
-        private val interactor: Interactor,
-        private val coroutineScopeIO: CoroutineScope,
+        private val interactor: Interactor
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == ViewModelScreenGame::class.java)
             return ViewModelScreenGame(
-                interactor,
-                coroutineScopeIO
+                interactor
             ) as T
         }
     }

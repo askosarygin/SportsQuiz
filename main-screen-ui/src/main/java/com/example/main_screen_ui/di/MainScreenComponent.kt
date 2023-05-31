@@ -14,10 +14,6 @@ import com.example.main_screen_ui.screen_start.FragmentScreenStart
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -42,10 +38,7 @@ internal interface MainScreenComponent {
 }
 
 @Module
-class MainScreenModule {
-    @Provides
-    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-}
+class MainScreenModule
 
 @Module
 interface MainScreenModuleBinds {

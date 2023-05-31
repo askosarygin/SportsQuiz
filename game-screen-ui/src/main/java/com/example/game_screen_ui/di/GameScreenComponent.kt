@@ -18,10 +18,6 @@ import com.example.game_screen_ui.screen_game.FragmentScreenGame
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -47,12 +43,7 @@ internal interface GameScreenComponent {
 }
 
 @Module
-class GameScreenModule {
-
-    @Provides
-    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-
-}
+class GameScreenModule
 
 @Module
 interface GameScreenModuleBinds {

@@ -48,6 +48,12 @@ class FragmentScreenWallpapersStore :
         return binding.root
     }
 
+    override fun onResume() {
+        viewModel.getPoints()
+
+        super.onResume()
+    }
+
     private fun initListeners() {
         binding.btnBack.setOnClickListener {
             viewModel.buttonBackPressed()
@@ -66,6 +72,9 @@ class FragmentScreenWallpapersStore :
                             )
                     }
                 }
+            }
+            if (oldModel?.points != newModel.points) {
+                binding.tvBalanceCount.text = newModel.points.toString()
             }
         }
     }

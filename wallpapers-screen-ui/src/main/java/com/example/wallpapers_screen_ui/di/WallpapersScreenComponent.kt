@@ -1,11 +1,23 @@
 package com.example.wallpapers_screen_ui.di
 
+import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import com.example.common.NavHostsInfo
-import com.example.data.db.QuestionsInfoDBStorage
+import com.example.data.RepositoryWallpapersScreenDomainImpl
+import com.example.data.account_data.AccountDataStorage
+import com.example.data.account_data.AccountDataStorageImpl
+import com.example.wallpapers_screen_domain.Interactor
+import com.example.wallpapers_screen_domain.InteractorImpl
+import com.example.wallpapers_screen_domain.Repository
 import com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore
+import dagger.Binds
 import dagger.Component
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Scope
 import kotlin.properties.Delegates
 
@@ -30,30 +42,34 @@ internal interface WallpapersScreenComponent {
 }
 
 @Module
-class WallpapersScreenModule
+class WallpapersScreenModule {
+    @Provides
+    fun provideCoroutineScopeIO(): CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+}
 
 @Module
 interface WallpapersScreenModuleBinds {
 
-//    @Binds
-//    fun bindInteractorImplToInteractor(
-//        interactorImpl: InteractorImpl
-//    ): Interactor
-//
-//    @Binds
-//    fun bindRepositoryImplToRepository(
-//        repositoryLoginDomainImpl: RepositoryLoginDomainImpl
-//    ): Repository
-//
-//    @Binds
-//    fun bindAccountDataLoaderImplToAccountDataLoader(
-//        accountDataLoaderImpl: AccountDataLoaderImpl
-//    ): AccountDataLoader
+    @Binds
+    fun bindRepositoryGameScreenDomainImplToRepository(
+        repositoryWallpapersScreenDomainImpl: RepositoryWallpapersScreenDomainImpl
+    ): Repository
+
+    @Binds
+    fun bindInteractorImplToInteractor(
+        interactorImpl: InteractorImpl
+    ): Interactor
+
+    @Binds
+    fun bindAccountDataStorageImplToAccountDataStorage(
+        accountDataStorageImpl: AccountDataStorageImpl
+    ): AccountDataStorage
 }
 
 interface WallpapersScreenComponentDependencies {
     val navHostsInfo: NavHostsInfo
-    val questionsInfoDBStorage: QuestionsInfoDBStorage
+    val resources: Resources
+    val sharedPreferences: SharedPreferences
 }
 
 object WallpapersScreenComponentDependenciesStore {

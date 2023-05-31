@@ -10,22 +10,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="43dp" />
+        app:layout_constraintGuide_begin="@dimen/indent_from_start_screen" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_end"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="43dp" />
+        app:layout_constraintGuide_end="@dimen/indent_from_end_screen" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_balance_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_points_balance_end"
         android:text="@string/points_balance"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"
         app:layout_constraintEnd_toStartOf="@id/tv_balance_count"
         app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
@@ -34,8 +35,8 @@
         android:id="@+id/tv_balance_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="16sp"
+        android:layout_marginTop="@dimen/indent_from_top_screen"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="100" />
@@ -47,10 +48,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"
         android:gravity="center"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
+        android:paddingHorizontal="@dimen/padding_small_button_horizontal"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
         android:text="@string/back"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
@@ -60,9 +61,9 @@
         android:id="@+id/tv_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/margin_above_header"
         android:text="@string/welcome_to_the_wallpapers_store"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_balance_count" />
@@ -72,7 +73,7 @@
         android:id="@+id/rv_wallpapers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/margin_under_header"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"

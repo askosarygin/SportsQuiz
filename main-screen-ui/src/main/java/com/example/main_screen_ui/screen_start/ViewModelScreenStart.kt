@@ -38,6 +38,20 @@ class ViewModelScreenStart(
         }
     }
 
+    data class Model(
+        val points: Int = 0,
+        val navigationEvent: NavigationEvent? = null
+    ) {
+        class NavigationEvent(
+            navigateTo: NavigationDestination
+        ) : SportsQuizViewModelEvent<NavigationEvent.NavigationDestination>(navigateTo) {
+            enum class NavigationDestination {
+                ScreenDifficultySelection,
+                ScreenWallpapersStore
+            }
+        }
+    }
+
     private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
         update {
             it.copy(
@@ -51,20 +65,6 @@ class ViewModelScreenStart(
             it.copy(
                 points = points
             )
-        }
-    }
-
-    data class Model(
-        val points: Int = 0,
-        val navigationEvent: NavigationEvent? = null
-    ) {
-        class NavigationEvent(
-            navigateTo: NavigationDestination
-        ) : SportsQuizViewModelEvent<NavigationEvent.NavigationDestination>(navigateTo) {
-            enum class NavigationDestination {
-                ScreenDifficultySelection,
-                ScreenWallpapersStore
-            }
         }
     }
 

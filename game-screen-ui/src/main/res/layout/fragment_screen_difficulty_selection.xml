@@ -9,20 +9,20 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="43dp" />
+        app:layout_constraintGuide_begin="@dimen/indent_from_start_screen" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_end"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="43dp" />
+        app:layout_constraintGuide_end="@dimen/indent_from_end_screen" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message_select_difficulty"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toTopOf="@id/btn_easy"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"
         android:gravity="center"
-        android:paddingVertical="10dp"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
         android:text="@string/easy"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
@@ -46,13 +46,13 @@
         android:id="@+id/btn_normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/indent_top_between_elements"
         android:background="@drawable/style_button"
         android:gravity="center"
-        android:paddingVertical="10dp"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
         android:text="@string/normal"
         android:textAlignment="gravity"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/btn_easy" />
@@ -61,13 +61,13 @@
         android:id="@+id/btn_hard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/indent_top_between_elements"
         android:background="@drawable/style_button"
         android:gravity="center"
-        android:paddingVertical="10dp"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
         android:text="@string/hard"
         android:textAlignment="gravity"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/btn_normal" />

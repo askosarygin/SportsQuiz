@@ -4,9 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.SportsQuizViewModel
 import com.example.common.SportsQuizViewModelEvent
+import com.example.wallpapers_screen_domain.Interactor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ViewModelScreenWallpapersStore : SportsQuizViewModel<ViewModelScreenWallpapersStore.Model>(Model()) {
+class ViewModelScreenWallpapersStore(
+    private val interactor: Interactor,
+    private val coroutineScopeIO: CoroutineScope
+) : SportsQuizViewModel<ViewModelScreenWallpapersStore.Model>(Model()) {
 
 
     fun buttonBackPressed() {
@@ -17,15 +23,16 @@ class ViewModelScreenWallpapersStore : SportsQuizViewModel<ViewModelScreenWallpa
         )
     }
 
-    private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
-        update {
-            it.copy(
-                navigationEvent = navigationEvent
-            )
+    fun getPoints() {
+        coroutineScopeIO.launch {
+            val points = interactor.getPointsFromAccountDataStorage()
+
+            updatePoints(points)
         }
     }
 
     data class Model(
+        val points: Int = 0,
         val navigationEvent: NavigationEvent? = null
     ) {
         class NavigationEvent(
@@ -37,11 +44,33 @@ class ViewModelScreenWallpapersStore : SportsQuizViewModel<ViewModelScreenWallpa
         }
     }
 
-    class Factory @Inject constructor() : ViewModelProvider.Factory {
+    private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
+        update {
+            it.copy(
+                navigationEvent = navigationEvent
+            )
+        }
+    }
+
+    private fun updatePoints(points: Int) {
+        update {
+            it.copy(
+                points = points
+            )
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val interactor: Interactor,
+        private val coroutineScopeIO: CoroutineScope
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == ViewModelScreenWallpapersStore::class.java)
-            return ViewModelScreenWallpapersStore() as T
+            return ViewModelScreenWallpapersStore(
+                interactor,
+                coroutineScopeIO
+            ) as T
         }
     }
 }

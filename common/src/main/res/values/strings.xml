@@ -23,4 +23,12 @@
     //Screen game
     <string name="points">Points:</string>
     <string name="next_question">Next question</string>
+    <string name="time_is_over">Time is over</string>
+    <string name="main_screen">Main screen</string>
+    <string name="play_again">Play again</string>
+
+    <string name="game_result_first_part">You answered</string>
+    <string name="game_result_second_part">questions correctly, your score increased by</string>
+    <string name="game_result_third_part">points</string>
+
 </resources>

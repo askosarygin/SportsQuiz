@@ -44,23 +44,32 @@ class ViewModelScreenGame(
         updateQuestionInfoInModel(
             model.value.questionsInfo[model.value.currentQuestionNumber]
         )
-
-        startTimer()
+        startTimer(5)
     }
 
-    private fun stopGame() {
-        //сделать всплывающее сообщение с кнопками "играть еще" и "на главный экран" и на нём успокоиться
+    fun buttonPlayAgainPressed() {
+
     }
 
-    private fun startTimer() {
+    private fun startTimer(seconds: Int) {
         coroutineScopeIO.launch {
-            for (sec in 30 downTo 0) {
-                updateModel(
-                    timer = "0:$sec"
-                )
+            for (sec in seconds downTo 1) {
+                if (sec < 10) {
+                    updateModel(
+                        timer = "0:0$sec"
+                    )
+                } else {
+                    updateModel(
+                        timer = "0:$sec"
+                    )
+                }
+
                 delay(1000)
             }
-            stopGame()
+            updateModel(
+                gameStateEvent = Model.GameStateEvent(Model.GameStateEvent.GameState.Stop),
+                timer = "0:00"
+            )
         }
     }
 
@@ -199,6 +208,7 @@ class ViewModelScreenGame(
         questionsInfo: List<QuestionInfo> = model.value.questionsInfo,
         currentQuestionNumber: Int = model.value.currentQuestionNumber,
         navigationEvent: Model.NavigationEvent? = model.value.navigationEvent,
+        gameStateEvent: Model.GameStateEvent? = model.value.gameStateEvent,
         buttonNextQuestionVisible: Boolean = model.value.buttonNextQuestionVisible,
         points: Int = model.value.points,
         timer: String = model.value.timer
@@ -217,6 +227,7 @@ class ViewModelScreenGame(
                 questionsInfo = questionsInfo,
                 currentQuestionNumber = currentQuestionNumber,
                 navigationEvent = navigationEvent,
+                gameStateEvent = gameStateEvent,
                 buttonNextQuestionVisible = buttonNextQuestionVisible,
                 points = points,
                 timer = timer
@@ -230,28 +241,31 @@ class ViewModelScreenGame(
         val answerTwo: String = "",
         val answerThree: String = "",
         val answerFour: String = "",
-
         val answerOneSelected: Boolean = false,
         val answerTwoSelected: Boolean = false,
         val answerThreeSelected: Boolean = false,
         val answerFourSelected: Boolean = false,
-
         val questionsInfo: List<QuestionInfo> = listOf(),
         val currentQuestionNumber: Int = 0,
-
         val navigationEvent: NavigationEvent? = null,
+        val gameStateEvent: GameStateEvent? = null,
         val buttonNextQuestionVisible: Boolean = false,
-
         val points: Int = 0,
         val timer: String = ""
     ) {
-        class StartGameEvent
+        class GameStateEvent(
+            gameState: GameState
+        ) : SportsQuizViewModelEvent<GameStateEvent.GameState>(gameState) {
+            enum class GameState {
+                Stop
+            }
+        }
 
         class NavigationEvent(
             navigateTo: NavigationDestination
         ) : SportsQuizViewModelEvent<NavigationEvent.NavigationDestination>(navigateTo) {
             enum class NavigationDestination {
-                ScreenResults
+                ScreenDifficultySelection
             }
         }
     }

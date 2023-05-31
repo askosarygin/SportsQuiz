@@ -1,12 +1,17 @@
 package com.example.game_screen_ui.screen_game
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.example.common.NavHostsInfo
 import com.example.common.SportsQuizFragment
+import com.example.common.SportsQuizTwoButtonsDialogFragment
 import com.example.game_screen_ui.R
 import com.example.game_screen_ui.databinding.FragmentScreenGameBinding
 import com.example.game_screen_ui.di.GameScreenComponentViewModel
@@ -17,6 +22,9 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
 
     @Inject
     lateinit var factory: ViewModelScreenGame.Factory
+
+    @Inject
+    lateinit var navHostsInfo: NavHostsInfo
 
     private val viewModel by viewModels<ViewModelScreenGame> {
         factory
@@ -69,8 +77,48 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenGame.Model.NavigationEvent.NavigationDestination.ScreenResults ->
+                        ViewModelScreenGame.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
                             TODO()
+                    }
+                }
+            }
+
+            if (oldModel?.gameStateEvent != newModel.gameStateEvent) {
+                newModel.gameStateEvent?.use { gameState ->
+                    when (gameState) {
+                        ViewModelScreenGame.Model.GameStateEvent.GameState.Stop ->
+                            SportsQuizTwoButtonsDialogFragment(
+                                manager = parentFragmentManager,
+                                title = com.example.common.R.string.time_is_over,
+                                message = "${
+                                    resources.getString(
+                                        com.example.common.R.string.game_result_first_part
+                                    )
+                                } ${
+                                    newModel.points
+                                } ${
+                                    resources.getString(
+                                        com.example.common.R.string.game_result_second_part
+                                    )
+                                } ${newModel.points} ${
+                                    resources.getString(
+                                        com.example.common.R.string.game_result_third_part
+                                    )
+                                }",
+                                positiveButtonText = com.example.common.R.string.main_screen,
+                                positiveButtonAction = { _, _ ->
+                                    Navigation.findNavController(
+                                        requireActivity(),
+                                        navHostsInfo.globalNavHostId
+                                    ).navigate(
+                                        Uri.parse("sports-quiz://main-screen")
+                                    )
+                                },
+                                negativeButtonText = com.example.common.R.string.play_again,
+                                negativeButtonAction = { _, _ ->
+                                    findNavController().navigate(R.id.action_fragmentScreenGame_to_fragmentScreenDifficultySelection)
+                                }
+                            ).showDialog()
                     }
                 }
             }

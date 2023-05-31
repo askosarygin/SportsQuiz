@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/fragmentScreenGame"
         android:name="com.example.game_screen_ui.screen_game.FragmentScreenGame"
-        android:label="FragmentScreenGame" />
+        android:label="FragmentScreenGame" >
+        <action
+            android:id="@+id/action_fragmentScreenGame_to_fragmentScreenDifficultySelection"
+            app:destination="@id/fragmentScreenDifficultySelection" />
+    </fragment>
 </navigation>

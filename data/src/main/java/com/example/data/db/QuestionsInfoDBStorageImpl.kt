@@ -1,5 +1,6 @@
 package com.example.data.db
 
+import android.util.Log
 import com.example.common.Difficult
 import com.example.common.QuestionInfoDB
 import kotlinx.coroutines.GlobalScope
@@ -16,22 +17,25 @@ class QuestionsInfoDBStorageImpl @Inject constructor(
 
     private fun addQuestionsInfoToDB() {
         GlobalScope.launch { //todo по идее вопросы должны подтягиваться из сети, а так имитация подтягивания из сети
-
+            Log.i("MY_TAG", "Пошла загрузка данных в бд")
             val allQuestionsInfo = questionsInfoDatabase.getAll()
 
-            if (allQuestionsInfo.isEmpty()) {
+//            if (allQuestionsInfo.isEmpty()) {
                 QuestionsForAddToDBService.listOfEasyQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
+                Log.i("MY_TAG", "Лёгкие вопросы загружены")
 
                 QuestionsForAddToDBService.listOfNormalQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
+                Log.i("MY_TAG", "Средние вопросы загружены")
 
                 QuestionsForAddToDBService.listOfHardQuestionsInfoWithIncorrectAnswers.forEach { questionInfo ->
                     save(questionInfo)
                 }
-            }
+                Log.i("MY_TAG", "Тяжелые вопросы загружены")
+//            }
         }
     }
 

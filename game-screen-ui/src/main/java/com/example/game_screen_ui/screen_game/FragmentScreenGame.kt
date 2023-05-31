@@ -100,12 +100,12 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                                         com.example.common.R.string.game_result_first_part
                                     )
                                 } ${
-                                    newModel.points
+                                    newModel.earnedPoints
                                 } ${
                                     resources.getString(
                                         com.example.common.R.string.game_result_second_part
                                     )
-                                } ${newModel.points} ${
+                                } ${newModel.earnedPoints} ${
                                     resources.getString(
                                         com.example.common.R.string.game_result_third_part
                                     )
@@ -126,6 +126,10 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                             ).showDialog()
                     }
                 }
+            }
+
+            if (oldModel?.earnedPoints != newModel.earnedPoints) {
+                binding.tvPointsCount.text = newModel.earnedPoints.toString()
             }
 
             if (oldModel?.timer != newModel.timer) {

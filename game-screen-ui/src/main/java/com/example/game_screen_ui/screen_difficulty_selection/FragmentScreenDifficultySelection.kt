@@ -14,8 +14,9 @@ import com.example.game_screen_ui.databinding.FragmentScreenDifficultySelectionB
 import com.example.game_screen_ui.di.GameScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenDifficultySelection :
-    SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
+class FragmentScreenDifficultySelection(
+
+) : SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
     private lateinit var binding: FragmentScreenDifficultySelectionBinding
 
     @Inject

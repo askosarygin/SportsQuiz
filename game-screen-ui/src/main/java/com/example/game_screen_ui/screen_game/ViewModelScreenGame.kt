@@ -38,123 +38,114 @@ class ViewModelScreenGame(
     }
 
     private fun startGame(questionsInfoLoaded: List<QuestionInfo>) {
-        updateModel(
-            questionsInfo = questionsInfoLoaded
-        )
-        updateQuestionInfoInModel(
+        updateQuestionsInfo(questionsInfoLoaded)
+
+        setQuestionAndAnswersWithRandom(
             model.value.questionsInfo[model.value.currentQuestionNumber]
         )
-        startTimer(5)
+
+        startTimer(10)
     }
 
     private fun startTimer(seconds: Int) {
         coroutineScopeIO.launch {
             for (sec in seconds downTo 1) {
                 if (sec < 10) {
-                    updateModel(
+                    updateTimer(
                         timer = "0:0$sec"
                     )
                 } else {
-                    updateModel(
+                    updateTimer(
                         timer = "0:$sec"
                     )
                 }
 
                 delay(1000)
             }
-            updateModel(
-                gameStateEvent = Model.GameStateEvent(Model.GameStateEvent.GameState.Stop),
-                timer = "0:00"
-            )
+            updateGameStateEvent(Model.GameStateEvent(Model.GameStateEvent.GameState.Stop))
+            updateTimer("0:00")
+            interactor.savePointsToAccountDataStorage(model.value.earnedPoints)
         }
     }
 
-    private fun updateQuestionInfoInModel(questionInfo: QuestionInfo) {
+    private fun setQuestionAndAnswersWithRandom(questionInfo: QuestionInfo) {
         when ((1..4).random()) {
-            1 -> updateModel(
-                question = questionInfo.questionText,
-                answerOne = questionInfo.correctAnswer,
-                answerTwo = questionInfo.incorrectAnswerOne,
-                answerThree = questionInfo.incorrectAnswerTwo,
-                answerFour = questionInfo.incorrectAnswerThree
-            )
-            2 -> updateModel(
-                question = questionInfo.questionText,
-                answerOne = questionInfo.incorrectAnswerOne,
-                answerTwo = questionInfo.correctAnswer,
-                answerThree = questionInfo.incorrectAnswerTwo,
-                answerFour = questionInfo.incorrectAnswerThree
-            )
-            3 -> updateModel(
-                question = questionInfo.questionText,
-                answerOne = questionInfo.incorrectAnswerOne,
-                answerTwo = questionInfo.incorrectAnswerTwo,
-                answerThree = questionInfo.correctAnswer,
-                answerFour = questionInfo.incorrectAnswerThree
-            )
-            4 -> updateModel(
-                question = questionInfo.questionText,
-                answerOne = questionInfo.incorrectAnswerOne,
-                answerTwo = questionInfo.incorrectAnswerTwo,
-                answerThree = questionInfo.incorrectAnswerThree,
-                answerFour = questionInfo.correctAnswer
-            )
+            1 -> {
+                updateQuestion(questionInfo.questionText)
+                updateAnswerOne(questionInfo.correctAnswer)
+                updateAnswerTwo(questionInfo.incorrectAnswerOne)
+                updateAnswerThree(questionInfo.incorrectAnswerTwo)
+                updateAnswerFour(questionInfo.incorrectAnswerThree)
+            }
+            2 -> {
+                updateQuestion(questionInfo.questionText)
+                updateAnswerOne(questionInfo.incorrectAnswerOne)
+                updateAnswerTwo(questionInfo.correctAnswer)
+                updateAnswerThree(questionInfo.incorrectAnswerTwo)
+                updateAnswerFour(questionInfo.incorrectAnswerThree)
+            }
+            3 -> {
+                updateQuestion(questionInfo.questionText)
+                updateAnswerOne(questionInfo.incorrectAnswerOne)
+                updateAnswerTwo(questionInfo.incorrectAnswerTwo)
+                updateAnswerThree(questionInfo.correctAnswer)
+                updateAnswerFour(questionInfo.incorrectAnswerThree)
+            }
+            4 -> {
+                updateQuestion(questionInfo.questionText)
+                updateAnswerOne(questionInfo.incorrectAnswerOne)
+                updateAnswerTwo(questionInfo.incorrectAnswerTwo)
+                updateAnswerThree(questionInfo.incorrectAnswerThree)
+                updateAnswerFour(questionInfo.correctAnswer)
+            }
         }
     }
 
     fun answerOneToggleSelection() {
-        updateModel(answerOneSelected = !model.value.answerOneSelected)
+        updateAnswerOneSelected(!model.value.answerOneSelected)
         if (model.value.answerOneSelected) {
-            updateModel(
-                answerTwoSelected = false,
-                answerThreeSelected = false,
-                answerFourSelected = false,
-                buttonNextQuestionVisible = true
-            )
+            updateAnswerTwoSelected(false)
+            updateAnswerThreeSelected(false)
+            updateAnswerFourSelected(false)
+            updateButtonNextQuestionVisible(true)
         } else {
-            updateModel(buttonNextQuestionVisible = false)
+            updateButtonNextQuestionVisible(false)
         }
     }
 
     fun answerTwoToggleSelection() {
-        updateModel(answerTwoSelected = !model.value.answerTwoSelected)
+        updateAnswerTwoSelected(!model.value.answerTwoSelected)
         if (model.value.answerTwoSelected) {
-            updateModel(
-                answerOneSelected = false,
-                answerThreeSelected = false,
-                answerFourSelected = false,
-                buttonNextQuestionVisible = true
-            )
+            updateAnswerOneSelected(false)
+            updateAnswerThreeSelected(false)
+            updateAnswerFourSelected(false)
+            updateButtonNextQuestionVisible(true)
         } else {
-            updateModel(buttonNextQuestionVisible = false)
+            updateButtonNextQuestionVisible(false)
         }
     }
 
     fun answerThreeToggleSelection() {
-        updateModel(answerThreeSelected = !model.value.answerThreeSelected)
+        updateAnswerThreeSelected(!model.value.answerThreeSelected)
         if (model.value.answerThreeSelected) {
-            updateModel(
-                answerOneSelected = false,
-                answerTwoSelected = false,
-                answerFourSelected = false,
-                buttonNextQuestionVisible = true
-            )
+            updateAnswerOneSelected(false)
+            updateAnswerTwoSelected(false)
+            updateAnswerFourSelected(false)
+            updateButtonNextQuestionVisible(true)
         } else {
-            updateModel(buttonNextQuestionVisible = false)
+            updateButtonNextQuestionVisible(false)
         }
     }
 
     fun answerFourToggleSelection() {
-        updateModel(answerFourSelected = !model.value.answerFourSelected)
+        updateAnswerFourSelected(answerFourSelected = !model.value.answerFourSelected)
         if (model.value.answerFourSelected) {
-            updateModel(
-                answerOneSelected = false,
-                answerTwoSelected = false,
-                answerThreeSelected = false,
-                buttonNextQuestionVisible = true
-            )
+            updateAnswerOneSelected(false)
+            updateAnswerTwoSelected(false)
+            updateAnswerThreeSelected(false)
+            updateButtonNextQuestionVisible(true)
         } else {
-            updateModel(buttonNextQuestionVisible = false)
+            updateButtonNextQuestionVisible(false)
         }
     }
 
@@ -175,60 +166,20 @@ class ViewModelScreenGame(
     }
 
     fun buttonNextQuestionPressed() {
-        var points = model.value.points
+        var earnedPoints = model.value.earnedPoints
         if (isAnswerCorrect()) {
-            points += 1
+            earnedPoints += 1
         }
-        updateModel(
-            points = points,
-            currentQuestionNumber = model.value.currentQuestionNumber + 1,
-            answerOneSelected = false,
-            answerTwoSelected = false,
-            answerThreeSelected = false,
-            answerFourSelected = false,
-            buttonNextQuestionVisible = false
-        )
-        updateQuestionInfoInModel(model.value.questionsInfo[model.value.currentQuestionNumber])
-    }
 
-    private fun updateModel(
-        question: String = model.value.question,
-        answerOne: String = model.value.answerOne,
-        answerTwo: String = model.value.answerTwo,
-        answerThree: String = model.value.answerThree,
-        answerFour: String = model.value.answerFour,
-        answerOneSelected: Boolean = model.value.answerOneSelected,
-        answerTwoSelected: Boolean = model.value.answerTwoSelected,
-        answerThreeSelected: Boolean = model.value.answerThreeSelected,
-        answerFourSelected: Boolean = model.value.answerFourSelected,
-        questionsInfo: List<QuestionInfo> = model.value.questionsInfo,
-        currentQuestionNumber: Int = model.value.currentQuestionNumber,
-        navigationEvent: Model.NavigationEvent? = model.value.navigationEvent,
-        gameStateEvent: Model.GameStateEvent? = model.value.gameStateEvent,
-        buttonNextQuestionVisible: Boolean = model.value.buttonNextQuestionVisible,
-        points: Int = model.value.points,
-        timer: String = model.value.timer
-    ) {
-        update {
-            it.copy(
-                question = question,
-                answerOne = answerOne,
-                answerTwo = answerTwo,
-                answerThree = answerThree,
-                answerFour = answerFour,
-                answerOneSelected = answerOneSelected,
-                answerTwoSelected = answerTwoSelected,
-                answerThreeSelected = answerThreeSelected,
-                answerFourSelected = answerFourSelected,
-                questionsInfo = questionsInfo,
-                currentQuestionNumber = currentQuestionNumber,
-                navigationEvent = navigationEvent,
-                gameStateEvent = gameStateEvent,
-                buttonNextQuestionVisible = buttonNextQuestionVisible,
-                points = points,
-                timer = timer
-            )
-        }
+        updateEarnedPoints(earnedPoints)
+        updateCurrentQuestionNumber(model.value.currentQuestionNumber + 1)
+        updateAnswerOneSelected(false)
+        updateAnswerTwoSelected(false)
+        updateAnswerThreeSelected(false)
+        updateAnswerFourSelected(false)
+        updateButtonNextQuestionVisible(false)
+
+        setQuestionAndAnswersWithRandom(model.value.questionsInfo[model.value.currentQuestionNumber])
     }
 
     data class Model(
@@ -246,7 +197,7 @@ class ViewModelScreenGame(
         val navigationEvent: NavigationEvent? = null,
         val gameStateEvent: GameStateEvent? = null,
         val buttonNextQuestionVisible: Boolean = false,
-        val points: Int = 0,
+        val earnedPoints: Int = 0,
         val timer: String = ""
     ) {
         class GameStateEvent(
@@ -263,6 +214,135 @@ class ViewModelScreenGame(
             enum class NavigationDestination {
                 ScreenDifficultySelection
             }
+        }
+    }
+
+    private fun updateQuestion(question: String) {
+        update {
+            it.copy(
+                question = question
+            )
+        }
+    }
+
+    private fun updateAnswerOne(answerOne: String) {
+        update {
+            it.copy(
+                answerOne = answerOne
+            )
+        }
+    }
+
+    private fun updateAnswerTwo(answerTwo: String) {
+        update {
+            it.copy(
+                answerTwo = answerTwo
+            )
+        }
+    }
+
+    private fun updateAnswerThree(answerThree: String) {
+        update {
+            it.copy(
+                answerThree = answerThree
+            )
+        }
+    }
+
+    private fun updateAnswerFour(answerFour: String) {
+        update {
+            it.copy(
+                answerFour = answerFour
+            )
+        }
+    }
+
+    private fun updateAnswerOneSelected(answerOneSelected: Boolean) {
+        update {
+            it.copy(
+                answerOneSelected = answerOneSelected
+            )
+        }
+    }
+
+    private fun updateAnswerTwoSelected(answerTwoSelected: Boolean) {
+        update {
+            it.copy(
+                answerTwoSelected = answerTwoSelected
+            )
+        }
+    }
+
+    private fun updateAnswerThreeSelected(answerThreeSelected: Boolean) {
+        update {
+            it.copy(
+                answerThreeSelected = answerThreeSelected
+            )
+        }
+    }
+
+    private fun updateAnswerFourSelected(answerFourSelected: Boolean) {
+        update {
+            it.copy(
+                answerFourSelected = answerFourSelected
+            )
+        }
+    }
+
+    private fun updateQuestionsInfo(questionsInfo: List<QuestionInfo>) {
+        update {
+            it.copy(
+                questionsInfo = questionsInfo
+            )
+        }
+    }
+
+    private fun updateCurrentQuestionNumber(currentQuestionNumber: Int) {
+        update {
+            it.copy(
+                currentQuestionNumber = currentQuestionNumber
+            )
+        }
+    }
+
+    private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
+        update {
+            it.copy(
+                navigationEvent = navigationEvent
+            )
+        }
+    }
+
+    private fun updateGameStateEvent(gameStateEvent: Model.GameStateEvent) {
+        update {
+            it.copy(
+                gameStateEvent = gameStateEvent
+            )
+        }
+    }
+
+    private fun updateButtonNextQuestionVisible(buttonNextQuestionVisible: Boolean) {
+        update {
+            it.copy(
+                buttonNextQuestionVisible = buttonNextQuestionVisible
+            )
+        }
+    }
+
+    private fun updateEarnedPoints(earnedPoints: Int) {
+        update {
+            it.copy(
+                earnedPoints = earnedPoints
+            )
+        }
+    }
+
+
+    private fun updateTimer(timer: String) {
+        update {
+            it.copy(
+                timer = timer
+            )
         }
     }
 

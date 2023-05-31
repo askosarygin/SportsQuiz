@@ -11,7 +11,8 @@ class AccountDataStorageImpl @Inject constructor(
     private val keyPoints = resources.getString(com.example.common.R.string.key_points)
 
     override fun savePoints(points: Int) : Boolean {
-        sharedPreferences.edit().putInt(keyPoints, points).apply()
+        val savedPoints = getPoints()
+        sharedPreferences.edit().putInt(keyPoints, points + savedPoints).apply()
         return true
     }
 

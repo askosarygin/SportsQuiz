@@ -43,8 +43,24 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
     }
 
     private fun initListeners() {
+        binding.tvPointsText.setOnClickListener { //todo тест запуска
+            viewModel.loadEasyQuestionsInfo()
+        }
+
+        binding.tvAnswerOne.setOnClickListener {
+            viewModel.answerOneToggleSelection()
+        }
+        binding.tvAnswerTwo.setOnClickListener {
+            viewModel.answerTwoToggleSelection()
+        }
+        binding.tvAnswerThree.setOnClickListener {
+            viewModel.answerThreeToggleSelection()
+        }
+        binding.tvAnswerFour.setOnClickListener {
+            viewModel.answerFourToggleSelection()
+        }
         binding.btnNextQuestion.setOnClickListener {
-            viewModel.loadEasyQuestions()//todo тест работы с БД
+            viewModel.buttonNextQuestionPressed()
         }
     }
 
@@ -58,6 +74,56 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                     }
                 }
             }
+
+            if (oldModel?.timer != newModel.timer) {
+                binding.tvTimer.text = newModel.timer
+            }
+
+            if (oldModel?.question != newModel.question) {
+                binding.tvQuestion.text = newModel.question
+            }
+            if (oldModel?.answerOne != newModel.answerOne) {
+                binding.tvAnswerOne.text = newModel.answerOne
+            }
+            if (oldModel?.answerTwo != newModel.answerTwo) {
+                binding.tvAnswerTwo.text = newModel.answerTwo
+            }
+            if (oldModel?.answerThree != newModel.answerThree) {
+                binding.tvAnswerThree.text = newModel.answerThree
+            }
+            if (oldModel?.answerFour != newModel.answerFour) {
+                binding.tvAnswerFour.text = newModel.answerFour
+            }
+
+            if (oldModel?.answerOneSelected != newModel.answerOneSelected) {
+                if (newModel.answerOneSelected) {
+                    binding.tvAnswerOne.setBackgroundResource(com.example.common.R.color.sports_quiz_blue)
+                } else {
+                    binding.tvAnswerOne.setBackgroundResource(com.example.common.R.color.sports_quiz_white)
+                }
+            }
+            if (oldModel?.answerTwoSelected != newModel.answerTwoSelected) {
+                if (newModel.answerTwoSelected) {
+                    binding.tvAnswerTwo.setBackgroundResource(com.example.common.R.color.sports_quiz_blue)
+                } else {
+                    binding.tvAnswerTwo.setBackgroundResource(com.example.common.R.color.sports_quiz_white)
+                }
+            }
+            if (oldModel?.answerThreeSelected != newModel.answerThreeSelected) {
+                if (newModel.answerThreeSelected) {
+                    binding.tvAnswerThree.setBackgroundResource(com.example.common.R.color.sports_quiz_blue)
+                } else {
+                    binding.tvAnswerThree.setBackgroundResource(com.example.common.R.color.sports_quiz_white)
+                }
+            }
+            if (oldModel?.answerFourSelected != newModel.answerFourSelected) {
+                if (newModel.answerFourSelected) {
+                    binding.tvAnswerFour.setBackgroundResource(com.example.common.R.color.sports_quiz_blue)
+                } else {
+                    binding.tvAnswerFour.setBackgroundResource(com.example.common.R.color.sports_quiz_white)
+                }
+            }
         }
     }
+
 }

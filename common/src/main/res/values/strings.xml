@@ -3,6 +3,7 @@
 
     //Service
     <string name="bundle_key_difficult">difficult</string>
+    <string name="bundle_key_wallpaper">wallpaper</string>
     <string name="key_points">points</string>
 
     <string name="sports_quiz_database">sports_quiz_database</string>
@@ -14,6 +15,9 @@
 
     //Common
     <string name="back">Back</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
     //Screen start
     <string name="new_game">New game</string>
@@ -40,5 +44,14 @@
     <string name="game_result_first_part">You answered</string>
     <string name="game_result_second_part">questions correctly, your score increased by</string>
     <string name="game_result_third_part">points</string>
+
+    //Screen wallpaper
+    <string name="buy">Buy</string>
+    <string name="set_wallpaper_to_phone">Set wallpaper to phone</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="points_price">points</string>
+    <string name="bought">(bought)</string>
+    <string name="no_enough_points">No enough points</string>
+    <string name="do_you_want_buy_this_wallpaper">Do you want buy this wallpaper?</string>
 
 </resources>

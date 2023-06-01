@@ -10,6 +10,7 @@ data class ResponseWallpapersNullable(
         @SerializedName("wallpapers_store") val wallpapersStoreNullable: ArrayList<WallpapersStoreNullable?>? = null
     ) {
         data class WallpapersStoreNullable(
+            @SerializedName("id") val id: Long? = null,
             @SerializedName("name") val name: String? = null,
             @SerializedName("price") val price: Int? = null,
             @SerializedName("image_url") val imageUrl: String? = null

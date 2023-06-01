@@ -9,6 +9,7 @@ data class ResponseWallpapers(
         val wallpapersStore: List<WallpapersStore>
     ) {
         data class WallpapersStore(
+            val id: Long,
             val name: String,
             val price: Int,
             val imageUrl: String

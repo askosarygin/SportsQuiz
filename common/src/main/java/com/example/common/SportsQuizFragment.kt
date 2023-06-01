@@ -75,6 +75,6 @@ open class SportsQuizFragment(
         findNavController().navigate(actionId, sentBundle, navOptions)
     }
 
-    protected fun getBundleDifficult(bundleKey: String): Serializable =
+    protected fun getBundleNavigation(bundleKey: String): Serializable =
         arguments?.getSerializable(bundleKey) ?: throw RuntimeException("Bundle is empty!")
 }

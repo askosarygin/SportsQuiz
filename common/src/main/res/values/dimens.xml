@@ -2,7 +2,8 @@
 <resources>
     <dimen name="indent_from_start_screen">43dp</dimen>
     <dimen name="indent_from_end_screen">43dp</dimen>
-    <dimen name="indent_from_top_screen">20dp</dimen>
+    <dimen name="indent_from_top_screen">25dp</dimen>
+    <dimen name="indent_from_top_screen_button_back">18dp</dimen>
     <dimen name="indent_from_bottom_screen">50dp</dimen>
 
     <dimen name="indent_top_between_elements">20dp</dimen>
@@ -12,8 +13,8 @@
     <dimen name="margin_above_header">30dp</dimen>
     <dimen name="margin_under_header">30dp</dimen>
 
-    <dimen name="padding_small_button_horizontal">15dp</dimen>
-    <dimen name="padding_small_button_vertical">10dp</dimen>
+    <dimen name="padding_small_button_horizontal">20dp</dimen>
+    <dimen name="padding_small_button_vertical">7dp</dimen>
 
     <dimen name="padding_action_block_horizontal">10dp</dimen>
     <dimen name="padding_action_block_vertical">15dp</dimen>
@@ -22,5 +23,5 @@
 
     <dimen name="text_size_small">16sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
-    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
 </resources>

@@ -24,7 +24,8 @@ class RepositoryNetworkImpl @Inject constructor(
 
         val wallpapers = response.recordNullable!!.wallpapersStoreNullable!!.map {
             ResponseWallpapers.Record.WallpapersStore(
-                it!!.name!!,
+                it!!.id!!,
+                it.name!!,
                 it.price!!,
                 it.imageUrl!!
             )

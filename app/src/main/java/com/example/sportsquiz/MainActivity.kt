@@ -1,7 +1,6 @@
 package com.example.sportsquiz
 
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.game_screen_ui.di.GameScreenComponentDependenciesStore
@@ -25,13 +24,6 @@ class MainApp : Application() {
         WallpapersScreenComponentDependenciesStore.dependencies = appComponent
     }
 }
-
-//TODO возможно не понадобится
-val Context.appComponent: AppComponent
-    get() = when (this) {
-        is MainApp -> appComponent
-        else -> this.applicationContext.appComponent
-    }
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

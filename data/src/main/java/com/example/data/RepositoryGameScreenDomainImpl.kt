@@ -14,7 +14,9 @@ class RepositoryGameScreenDomainImpl @Inject constructor(
     override suspend fun loadQuestionsInfoDBWithDifficult(difficult: Difficult): List<QuestionInfoDB> =
         questionsInfoDBStorage.getAllWithDifficult(difficult)
 
-    override suspend fun getPointsFromAccountDataStorage(): Int = accountDataStorage.getPoints()
+    override suspend fun getPointsFromAccountDataStorage(): Int =
+        accountDataStorage.getPoints()
 
-    override suspend fun savePointsToAccountDataStorage(points: Int): Boolean = accountDataStorage.savePoints(points)
+    override suspend fun savePointsToAccountDataStorage(points: Int): Boolean =
+        accountDataStorage.savePoints(points)
 }

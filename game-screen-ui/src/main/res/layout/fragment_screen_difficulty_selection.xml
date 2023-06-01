@@ -18,6 +18,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/indent_from_end_screen" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_back"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_button"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/padding_small_button_horizontal"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
+        android:text="@string/back"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginTop="@dimen/indent_from_top_screen_button_back"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

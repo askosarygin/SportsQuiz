@@ -17,4 +17,13 @@ class AccountDataStorageImpl @Inject constructor(
     }
 
     override fun getPoints(): Int = sharedPreferences.getInt(keyPoints, 0)
+
+    override fun saveBoughtWallpaperId(id: Long): Boolean {
+        sharedPreferences.edit().putLong("$id", id).apply()
+        return true
+    }
+
+    override fun checkBoughtWallpaper(id: Long): Boolean {
+        return sharedPreferences.getLong(id.toString(), -1L) != -1L
+    }
 }

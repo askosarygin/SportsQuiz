@@ -1,7 +1,7 @@
 package com.example.wallpapers_screen_ui.screen_wallpapers_store
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +14,7 @@ import com.example.wallpapers_screen_ui.databinding.FragmentScreenWallpapersStor
 import com.example.wallpapers_screen_ui.di.WallpapersScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenWallpapersStore :
-    SportsQuizFragment(R.layout.fragment_screen_wallpapers_store) {
+class FragmentScreenWallpapersStore : SportsQuizFragment(R.layout.fragment_screen_wallpapers_store) {
     private lateinit var binding: FragmentScreenWallpapersStoreBinding
 
     @Inject
@@ -29,7 +28,10 @@ class FragmentScreenWallpapersStore :
     }
 
     private var wallpapers = arrayListOf<Wallpaper>()
-    private val adapter = RecyclerViewAdapterScreenWallpapersStore(wallpapers)
+    private val adapter = RecyclerViewAdapterScreenWallpapersStore(wallpapers) { wallpaperPosition ->
+        viewModel.wallpaperSelected(wallpaperPosition)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,15 +73,22 @@ class FragmentScreenWallpapersStore :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initCollect() {
         viewModel.model.collectWithOld(lifecycleScope) { oldModel, newModel ->
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenWallpapersStore.Model.NavigationEvent.NavigationDestination.ScreenStart ->
+                        ViewModelScreenWallpapersStore.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenStart ->
                             navigateToModule(
                                 ModuleNames.MainScreen,
                                 navHostsInfo.globalNavHostId
+                            )
+                        ViewModelScreenWallpapersStore.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenWallpaper ->
+                            navigateToActionId(
+                                R.id.action_fragmentScreenWallpapersStore_to_fragmentScreenWallpaper,
+                                newModel.selectedWallpaper,
+                                resources.getString(com.example.common.R.string.bundle_key_wallpaper)
                             )
                     }
                 }
@@ -88,9 +97,6 @@ class FragmentScreenWallpapersStore :
                 binding.tvBalanceCount.text = newModel.points.toString()
             }
             if (oldModel?.wallpapers != newModel.wallpapers) {
-
-                Log.i("My_TAG", newModel.wallpapers.toString())
-
                 wallpapers.apply {
                     clear()
                     addAll(newModel.wallpapers)

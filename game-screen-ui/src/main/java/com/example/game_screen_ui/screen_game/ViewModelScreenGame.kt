@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.common.QuestionInfo
 import com.example.common.SportsQuizViewModel
-import com.example.common.SportsQuizViewModelEvent
+import com.example.common.SportsQuizViewModelSingleLifeEvent
 import com.example.game_screen_domain.Interactor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -15,6 +15,8 @@ import javax.inject.Inject
 class ViewModelScreenGame(
     private val interactor: Interactor
 ) : SportsQuizViewModel<ViewModelScreenGame.Model>(Model()) {
+
+    private val timeForGameSeconds = 20
 
     fun loadEasyQuestionsInfo() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -44,7 +46,7 @@ class ViewModelScreenGame(
             model.value.questionsInfo[model.value.currentQuestionNumber]
         )
 
-        startTimer(10)
+        startTimer(timeForGameSeconds)
     }
 
     private fun startTimer(seconds: Int) {
@@ -62,7 +64,7 @@ class ViewModelScreenGame(
 
                 delay(1000)
             }
-            updateGameStateEvent(Model.GameStateEvent(Model.GameStateEvent.GameState.Stop))
+            updateGameStateEvent(Model.GameStateSingleLifeEvent(Model.GameStateSingleLifeEvent.GameState.Stop))
             updateTimer("0:00")
             interactor.savePointsToAccountDataStorage(model.value.earnedPoints)
         }
@@ -194,23 +196,23 @@ class ViewModelScreenGame(
         val answerFourSelected: Boolean = false,
         val questionsInfo: List<QuestionInfo> = listOf(),
         val currentQuestionNumber: Int = 0,
-        val navigationEvent: NavigationEvent? = null,
-        val gameStateEvent: GameStateEvent? = null,
+        val navigationEvent: NavigationSingleLifeEvent? = null,
+        val gameStateEvent: GameStateSingleLifeEvent? = null,
         val buttonNextQuestionVisible: Boolean = false,
         val earnedPoints: Int = 0,
         val timer: String = ""
     ) {
-        class GameStateEvent(
+        class GameStateSingleLifeEvent(
             gameState: GameState
-        ) : SportsQuizViewModelEvent<GameStateEvent.GameState>(gameState) {
+        ) : SportsQuizViewModelSingleLifeEvent<GameStateSingleLifeEvent.GameState>(gameState) {
             enum class GameState {
                 Stop
             }
         }
 
-        class NavigationEvent(
+        class NavigationSingleLifeEvent(
             navigateTo: NavigationDestination
-        ) : SportsQuizViewModelEvent<NavigationEvent.NavigationDestination>(navigateTo) {
+        ) : SportsQuizViewModelSingleLifeEvent<NavigationSingleLifeEvent.NavigationDestination>(navigateTo) {
             enum class NavigationDestination {
                 ScreenDifficultySelection
             }
@@ -305,7 +307,7 @@ class ViewModelScreenGame(
         }
     }
 
-    private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
+    private fun updateNavigationEvent(navigationEvent: Model.NavigationSingleLifeEvent) {
         update {
             it.copy(
                 navigationEvent = navigationEvent
@@ -313,7 +315,7 @@ class ViewModelScreenGame(
         }
     }
 
-    private fun updateGameStateEvent(gameStateEvent: Model.GameStateEvent) {
+    private fun updateGameStateEvent(gameStateEvent: Model.GameStateSingleLifeEvent) {
         update {
             it.copy(
                 gameStateEvent = gameStateEvent

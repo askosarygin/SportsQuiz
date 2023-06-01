@@ -48,7 +48,7 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
     override fun onResume() {
         super.onResume()
 
-        val difficultLevel = getBundleDifficult(resources.getString(com.example.common.R.string.bundle_key_difficult)) as DifficultLevel
+        val difficultLevel = getBundleNavigation(resources.getString(com.example.common.R.string.bundle_key_difficult)) as DifficultLevel
 
         when (difficultLevel.difficultLevel) {
             Difficult.Easy.name -> viewModel.loadEasyQuestionsInfo()
@@ -80,7 +80,7 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenGame.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
+                        ViewModelScreenGame.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenDifficultySelection ->
                             navigateToActionId(
                                 R.id.action_fragmentScreenGame_to_fragmentScreenDifficultySelection
                             )
@@ -91,7 +91,7 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
             if (oldModel?.gameStateEvent != newModel.gameStateEvent) {
                 newModel.gameStateEvent?.use { gameState ->
                     when (gameState) {
-                        ViewModelScreenGame.Model.GameStateEvent.GameState.Stop ->
+                        ViewModelScreenGame.Model.GameStateSingleLifeEvent.GameState.Stop ->
                             SportsQuizTwoButtonsDialogFragment(
                                 manager = parentFragmentManager,
                                 title = com.example.common.R.string.time_is_over,
@@ -126,6 +126,15 @@ class FragmentScreenGame : SportsQuizFragment(R.layout.fragment_screen_game) {
                             ).showDialog()
                     }
                 }
+            }
+
+            if (oldModel?.buttonNextQuestionVisible != newModel.buttonNextQuestionVisible) {
+                if (newModel.buttonNextQuestionVisible) {
+                    binding.btnNextQuestion.visibility = View.VISIBLE
+                } else {
+                    binding.btnNextQuestion.visibility = View.GONE
+                }
+
             }
 
             if (oldModel?.earnedPoints != newModel.earnedPoints) {

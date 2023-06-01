@@ -1,5 +1,6 @@
 package com.example.sportsquiz.di
 
+import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -42,6 +43,7 @@ interface AppComponent
     override val sharedPreferences: SharedPreferences
     override val api: API
     override val repositoryNetwork: RepositoryNetwork
+    override val wallpaperManager: WallpaperManager
 
 
     @Component.Builder
@@ -59,6 +61,8 @@ interface AppComponent
 
 @Module
 class AppModule {
+    @Provides
+    fun provideWallpaperManager(context: Context) : WallpaperManager = WallpaperManager.getInstance(context)
 
     @Provides
     fun provideGlideRequestManager(context: Context): RequestManager = Glide.with(context)

@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/fragmentScreenWallpapersStore"
         android:name="com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore"
-        android:label="FragmentScreenWallpapersStore" />
+        android:label="FragmentScreenWallpapersStore" >
+        <action
+            android:id="@+id/action_fragmentScreenWallpapersStore_to_fragmentScreenWallpaper"
+            app:destination="@id/fragmentScreenWallpaper" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentScreenWallpaper"
+        android:name="com.example.wallpapers_screen_ui.screen_wallpaper.FragmentScreenWallpaper"
+        android:label="FragmentScreenWallpaper" >
+        <action
+            android:id="@+id/action_fragmentScreenWallpaper_to_fragmentScreenWallpapersStore"
+            app:destination="@id/fragmentScreenWallpapersStore" />
+    </fragment>
 </navigation>

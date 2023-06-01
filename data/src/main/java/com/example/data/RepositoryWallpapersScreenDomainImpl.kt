@@ -12,11 +12,20 @@ class RepositoryWallpapersScreenDomainImpl @Inject constructor(
     private val repositoryNetwork: RepositoryNetwork
 ) : Repository {
 
-    override suspend fun downloadBitmapFromUrl(url: String): Bitmap = repositoryNetwork.downloadBitmapFromUrl(url)
+    override suspend fun downloadBitmapFromUrl(url: String): Bitmap =
+        repositoryNetwork.downloadBitmapFromUrl(url)
 
     override suspend fun getPointsFromAccountDataStorage(): Int = accountDataStorage.getPoints()
 
-    override suspend fun savePointsToAccountDataStorage(points: Int): Boolean = accountDataStorage.savePoints(points)
+    override suspend fun savePointsToAccountDataStorage(points: Int): Boolean =
+        accountDataStorage.savePoints(points)
 
-    override suspend fun loadWallpapersFromNet(): ResponseWallpapers = repositoryNetwork.loadWallpapersFromNet()
+    override suspend fun loadWallpapersFromNet(): ResponseWallpapers =
+        repositoryNetwork.loadWallpapersFromNet()
+
+    override suspend fun saveBoughtWallpaperIdToAccountDataStorage(id: Long): Boolean =
+        accountDataStorage.saveBoughtWallpaperId(id)
+
+    override suspend fun checkBoughtWallpaperFromAccountDataStorage(id: Long): Boolean =
+        accountDataStorage.checkBoughtWallpaper(id)
 }

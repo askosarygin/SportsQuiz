@@ -7,5 +7,6 @@ import javax.inject.Inject
 class RepositoryMainScreenDomainImpl @Inject constructor(
     private val accountDataStorage: AccountDataStorage
 ) : Repository {
-    override suspend fun getPointsFromAccountDataStorage(): Int = accountDataStorage.getPoints()
+    override suspend fun getPointsFromAccountDataStorage(): Int =
+        accountDataStorage.getPoints()
 }

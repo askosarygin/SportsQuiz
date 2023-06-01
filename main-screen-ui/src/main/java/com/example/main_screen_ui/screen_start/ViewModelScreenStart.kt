@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.common.SportsQuizViewModel
-import com.example.common.SportsQuizViewModelEvent
+import com.example.common.SportsQuizViewModelSingleLifeEvent
 import com.example.main_screen_domain.Interactor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,16 +16,16 @@ class ViewModelScreenStart(
 
     fun buttonNewGamePressed() {
         updateNavigationEvent(
-            Model.NavigationEvent(
-                Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection
+            Model.NavigationSingleLifeEvent(
+                Model.NavigationSingleLifeEvent.NavigationDestination.ScreenDifficultySelection
             )
         )
     }
 
     fun buttonWallpapersStorePressed() {
         updateNavigationEvent(
-            Model.NavigationEvent(
-                Model.NavigationEvent.NavigationDestination.ScreenWallpapersStore
+            Model.NavigationSingleLifeEvent(
+                Model.NavigationSingleLifeEvent.NavigationDestination.ScreenWallpapersStore
             )
         )
     }
@@ -40,11 +40,11 @@ class ViewModelScreenStart(
 
     data class Model(
         val points: Int = 0,
-        val navigationEvent: NavigationEvent? = null
+        val navigationEvent: NavigationSingleLifeEvent? = null
     ) {
-        class NavigationEvent(
+        class NavigationSingleLifeEvent(
             navigateTo: NavigationDestination
-        ) : SportsQuizViewModelEvent<NavigationEvent.NavigationDestination>(navigateTo) {
+        ) : SportsQuizViewModelSingleLifeEvent<NavigationSingleLifeEvent.NavigationDestination>(navigateTo) {
             enum class NavigationDestination {
                 ScreenDifficultySelection,
                 ScreenWallpapersStore
@@ -52,7 +52,7 @@ class ViewModelScreenStart(
         }
     }
 
-    private fun updateNavigationEvent(navigationEvent: Model.NavigationEvent) {
+    private fun updateNavigationEvent(navigationEvent: Model.NavigationSingleLifeEvent) {
         update {
             it.copy(
                 navigationEvent = navigationEvent

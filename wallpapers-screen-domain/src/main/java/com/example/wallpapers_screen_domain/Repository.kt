@@ -12,4 +12,8 @@ interface Repository {
     suspend fun savePointsToAccountDataStorage(points: Int): Boolean
 
     suspend fun loadWallpapersFromNet(): ResponseWallpapers
+
+    suspend fun saveBoughtWallpaperIdToAccountDataStorage(id: Long) : Boolean
+
+    suspend fun checkBoughtWallpaperFromAccountDataStorage(id: Long): Boolean
 }

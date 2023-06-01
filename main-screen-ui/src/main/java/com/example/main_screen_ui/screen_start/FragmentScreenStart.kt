@@ -68,12 +68,12 @@ class FragmentScreenStart : SportsQuizFragment(R.layout.fragment_screen_start) {
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenDifficultySelection ->
+                        ViewModelScreenStart.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenDifficultySelection ->
                             navigateToModule(
                                 ModuleNames.GameScreen,
                                 navHostsInfo.globalNavHostId
                             )
-                        ViewModelScreenStart.Model.NavigationEvent.NavigationDestination.ScreenWallpapersStore ->
+                        ViewModelScreenStart.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenWallpapersStore ->
                             navigateToModule(
                                 ModuleNames.WallpapersScreen,
                                 navHostsInfo.globalNavHostId

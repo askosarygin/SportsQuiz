@@ -19,7 +19,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/indent_from_end_screen" />
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_balance_text"
         android:layout_width="wrap_content"
@@ -30,17 +29,6 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_balance_count"
         app:layout_constraintEnd_toStartOf="@id/tv_balance_count"
         app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_balance_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/indent_from_top_screen"
-        android:textSize="@dimen/text_size_small"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="100" />
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_back"
@@ -56,30 +44,62 @@
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toTopOf="@id/tv_balance_count" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_balance_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_from_top_screen"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="100" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_header"
+        android:id="@+id/tv_wallpaper_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintEnd_toStartOf="@id/tv_wallpaper_price"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toTopOf="@id/tv_wallpaper_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_wallpaper_price"
+        tools:text="Обои Тигр" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_wallpaper_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_above_header"
-        android:text="@string/welcome_to_the_wallpapers_store"
-        android:gravity="center"
         android:textSize="@dimen/text_size_large"
-        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toEndOf="@id/tv_wallpaper_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_balance_count"
+        tools:text="20 очков" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_wallpaper"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_balance_count" />
+        app:layout_constraintTop_toBottomOf="@id/tv_wallpaper_price"
+        app:layout_constraintBottom_toTopOf="@id/btn_buy_or_set_wallpaper"/>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_wallpapers"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_buy_or_set_wallpaper"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_under_header"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_button"
+        android:gravity="center"
+        android:paddingVertical="@dimen/padding_small_button_vertical"
+        android:textSize="@dimen/text_size_large"
+        android:layout_marginTop="@dimen/indent_top_between_elements"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_header" />
-
+        app:layout_constraintTop_toBottomOf="@id/iv_wallpaper"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Купить"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

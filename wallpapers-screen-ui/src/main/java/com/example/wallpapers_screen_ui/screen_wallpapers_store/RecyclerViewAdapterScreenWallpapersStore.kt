@@ -7,7 +7,8 @@ import com.example.common.Wallpaper
 import com.example.wallpapers_screen_ui.databinding.RecyclerViewItemWallpaperCardBinding
 
 class RecyclerViewAdapterScreenWallpapersStore(
-    private val listOfWallpapers: List<Wallpaper>
+    private val listOfWallpapers: List<Wallpaper>,
+    private val onClickWallpaper: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerViewAdapterScreenWallpapersStore.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -23,6 +24,9 @@ class RecyclerViewAdapterScreenWallpapersStore(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.wallpaperImage.setImageBitmap(listOfWallpapers[position].imageResource)
+        holder.binding.wallpaperImage.setOnClickListener {
+            onClickWallpaper(position)
+        }
     }
 
     override fun getItemCount(): Int = listOfWallpapers.size

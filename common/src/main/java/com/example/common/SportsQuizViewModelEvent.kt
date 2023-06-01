@@ -4,7 +4,7 @@ open class SportsQuizViewModelEvent<EVENT>(
     private val event: EVENT
 ) {
 
-    fun use(doEvent: (EVENT) -> Unit) {
+    open fun use(doEvent: (EVENT) -> Unit) {
         doEvent(event)
     }
 }

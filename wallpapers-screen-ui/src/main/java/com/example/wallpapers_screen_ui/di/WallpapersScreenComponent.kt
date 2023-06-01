@@ -1,5 +1,6 @@
 package com.example.wallpapers_screen_ui.di
 
+import android.app.WallpaperManager
 import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.example.data.network.retrofit.API
 import com.example.wallpapers_screen_domain.Interactor
 import com.example.wallpapers_screen_domain.InteractorImpl
 import com.example.wallpapers_screen_domain.Repository
+import com.example.wallpapers_screen_ui.screen_wallpaper.FragmentScreenWallpaper
 import com.example.wallpapers_screen_ui.screen_wallpapers_store.FragmentScreenWallpapersStore
 import dagger.Binds
 import dagger.Component
@@ -29,6 +31,7 @@ import kotlin.properties.Delegates
 internal interface WallpapersScreenComponent {
 
     fun inject(fragmentScreenWallpapersStore: FragmentScreenWallpapersStore)
+    fun inject(fragmentScreenWallpaper: FragmentScreenWallpaper)
 
     @Component.Builder
     interface Builder {
@@ -67,6 +70,7 @@ interface WallpapersScreenComponentDependencies {
     val sharedPreferences: SharedPreferences
     val api: API
     val repositoryNetwork: RepositoryNetwork
+    val wallpaperManager: WallpaperManager
 }
 
 object WallpapersScreenComponentDependenciesStore {

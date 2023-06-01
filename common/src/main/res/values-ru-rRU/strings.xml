@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Спортивная викторина</string>
+    <string name="back">Назад</string>
+    <string name="ok">ОК</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="new_game">Новая игра</string>
+    <string name="wallpapers_store">Магазин обоев</string>
+    <string name="greetings">Приветствуем на Спортивной Викторине!</string>
+    <string name="easy">Легко</string>
+    <string name="normal">Средне</string>
+    <string name="hard">Тяжело</string>
+    <string name="message_select_difficulty">Выберите сложность викторины</string>
+    <string name="welcome_to_the_wallpapers_store">Добро пожаловать в Магазин обоев</string>
+    <string name="points_balance">Ваш баланс очков:</string>
+    <string name="points">Очки:</string>
+    <string name="next_question">Следующий вопрос</string>
+    <string name="time_is_over">Время закончилось</string>
+    <string name="main_screen">Главный экран</string>
+    <string name="play_again">Играть снова</string>
+    <string name="game_result_first_part">Вы ответили на</string>
+    <string name="game_result_second_part">вопросов правильно, ваш счет увеличился на</string>
+    <string name="game_result_third_part">очков</string>
+    <string name="buy">Купить</string>
+    <string name="set_wallpaper_to_phone">Установить обои на телефон</string>
+    <string name="wallpaper">Обои</string>
+    <string name="points_price">очков</string>
+    <string name="bought">(куплено)</string>
+    <string name="no_enough_points">Не хватает очков</string>
+    <string name="do_you_want_buy_this_wallpaper">Вы хотите купить эти обои?</string>
+    <string name="wallpaper_installed_on_desktop">Обои установлены на рабочий стол</string>
+</resources>

@@ -6,21 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.common.Difficult
-import com.example.common.DifficultLevel
-import com.example.common.SportsQuizFragment
+import com.example.common.*
 import com.example.game_screen_ui.R
 import com.example.game_screen_ui.databinding.FragmentScreenDifficultySelectionBinding
 import com.example.game_screen_ui.di.GameScreenComponentViewModel
 import javax.inject.Inject
 
-class FragmentScreenDifficultySelection(
-
-) : SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
+class FragmentScreenDifficultySelection : SportsQuizFragment(R.layout.fragment_screen_difficulty_selection) {
     private lateinit var binding: FragmentScreenDifficultySelectionBinding
 
     @Inject
     lateinit var factory: ViewModelScreenDifficultySelection.Factory
+
+    @Inject
+    lateinit var navHostsInfo: NavHostsInfo
 
     private val viewModel by viewModels<ViewModelScreenDifficultySelection> {
         factory
@@ -58,6 +57,10 @@ class FragmentScreenDifficultySelection(
         binding.btnHard.setOnClickListener {
             viewModel.buttonHardPressed()
         }
+
+        binding.btnBack.setOnClickListener {
+            navigateToModule(ModuleNames.MainScreen, navHostsInfo.globalNavHostId)
+        }
     }
 
     private fun initCollect() {
@@ -65,7 +68,7 @@ class FragmentScreenDifficultySelection(
             if (oldModel?.navigationEvent != newModel.navigationEvent) {
                 newModel.navigationEvent?.use { navigationDestination ->
                     when (navigationDestination) {
-                        ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameEasy ->
+                        ViewModelScreenDifficultySelection.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenGameEasy ->
                             navigateToActionId(
                                 R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
                                 DifficultLevel(
@@ -73,7 +76,7 @@ class FragmentScreenDifficultySelection(
                                 ),
                                 resources.getString(com.example.common.R.string.bundle_key_difficult)
                             )
-                        ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameNormal ->
+                        ViewModelScreenDifficultySelection.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenGameNormal ->
                             navigateToActionId(
                                 R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
                                 DifficultLevel(
@@ -81,7 +84,7 @@ class FragmentScreenDifficultySelection(
                                 ),
                                 resources.getString(com.example.common.R.string.bundle_key_difficult)
                             )
-                        ViewModelScreenDifficultySelection.Model.NavigationEvent.NavigationDestination.ScreenGameHard ->
+                        ViewModelScreenDifficultySelection.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenGameHard ->
                             navigateToActionId(
                                 R.id.action_fragmentScreenDifficultySelection_to_fragmentScreenGame,
                                 DifficultLevel(

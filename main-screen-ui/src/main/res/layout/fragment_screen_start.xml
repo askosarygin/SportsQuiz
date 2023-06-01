@@ -45,6 +45,8 @@
         android:layout_height="wrap_content"
         android:text="@string/greetings"
         android:textSize="@dimen/text_size_large"
+        app:layout_constrainedWidth="true"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/btn_new_game"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"

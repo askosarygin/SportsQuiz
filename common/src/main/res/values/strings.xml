@@ -2,18 +2,22 @@
     <string name="app_name">Sports Quiz</string>
 
     //Service
-    <string name="bundle_key_difficult">difficult</string>
-    <string name="key_points">points</string>
+    <string name="bundle_key_difficult" translatable="false">difficult</string>
+    <string name="bundle_key_wallpaper" translatable="false">wallpaper</string>
+    <string name="key_points" translatable="false">points</string>
 
-    <string name="sports_quiz_database">sports_quiz_database</string>
-    <string name="sports_quiz_preferences">sports_quiz_preferences</string>
+    <string name="sports_quiz_database" translatable="false">sports_quiz_database</string>
+    <string name="sports_quiz_preferences" translatable="false">sports_quiz_preferences</string>
 
-    <string name="deep_link_game_screen">sports-quiz://game-screen</string>
-    <string name="deep_link_main_screen">sports-quiz://main-screen</string>
-    <string name="deep_link_wallpapers_screen">sports-quiz://wallpapers-screen</string>
+    <string name="deep_link_game_screen" translatable="false">sports-quiz://game-screen</string>
+    <string name="deep_link_main_screen" translatable="false">sports-quiz://main-screen</string>
+    <string name="deep_link_wallpapers_screen" translatable="false">sports-quiz://wallpapers-screen</string>
 
     //Common
     <string name="back">Back</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
     //Screen start
     <string name="new_game">New game</string>
@@ -40,5 +44,15 @@
     <string name="game_result_first_part">You answered</string>
     <string name="game_result_second_part">questions correctly, your score increased by</string>
     <string name="game_result_third_part">points</string>
+
+    //Screen wallpaper
+    <string name="buy">Buy</string>
+    <string name="wallpaper_installed_on_desktop">Wallpaper installed on desktop</string>
+    <string name="set_wallpaper_to_phone">Set wallpaper to phone</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="points_price">points</string>
+    <string name="bought">(bought)</string>
+    <string name="no_enough_points">No enough points</string>
+    <string name="do_you_want_buy_this_wallpaper">Do you want buy this wallpaper?</string>
 
 </resources>

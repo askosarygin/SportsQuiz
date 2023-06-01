@@ -13,6 +13,7 @@ class LoadWallpapersFromNetUseCase @Inject constructor(
 
         return responseWallpapers.map {
             Wallpaper(
+                it.id,
                 it.name,
                 it.price,
                 repository.downloadBitmapFromUrl(it.imageUrl)
